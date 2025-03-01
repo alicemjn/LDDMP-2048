@@ -1,49 +1,45 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2821
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww29200\viewh17240\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+variables générales {
+	liste ligne 1
+	liste ligne 2
+	liste ligne 3
+	liste ligne 4
 
-\f0\fs24 \cf0 variables g\'e9n\'e9rales \{\
-	liste ligne 1\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 	liste ligne 2\
-	liste ligne 3\
-	liste ligne 4\
-\
-	cases libres (\'e0 mettre \'e0 jour \'e0 chaque d\'e9placement et \'e0 chaque fois que le jouer tuile joue, au d\'e9but toutes les cases sont libres). \'c9crire sous la forme 2*3 par ex ou 2 est la colonne et 3 la ligne (long x largeur)\
-\};\
-\
-joueur tuile \{\
-	choisir al\'e9atoirement une valeur dans "cases libres" puis y ajouter sa valeur\
-	NB: doit exister une m\'e9thode mieux si on veut pouvoir d\'e9velopper la "version comp\'e9titive" du jeu\
-\};\
-\
-Attendre une entr\'e9e...\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \
-Si "d\'e9placement horizontal" \{\
-	executer ligne par ligne (ici ex ligne 1)\
-	cr\'e9er une liste avec les 4 valeurs de la ligne (ou 0 est une case vide)\
-	de gauche \'e0 droite ou de droite \'e0 gauche (selon d\'e9placement):\
-		1 : supprimer les 0\
-		2: si deux valeurs sont identiques et cote \'e0 cote (regarder la valeur qui suit/pr\'e9c\'e8de) alors fusionner les deux (somme) et remplacer par un 0 l'une des deux valeurs identiques selon si on va de gauche \'e0 droite ou de droite \'e0 gauche.\
-		3 : supprimer les 0\
-		4 : completer avec des 0 \'e0 la fin/ au d\'e9but de la liste pour avoir les 4 colonnes/valeurs\
-	mettre \'e0 jour la grille\
-\};\
-\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 Si "d\'e9placement vertical" \{\
-	adapter l'algo du dessus avec ciblage des listes avec les colonnes\
-	exemple de la technique:\
-		ex ligne 1: ligne 1 [i]\
-		ex colonne 1 : ligne i [1]\
-\
-	peut \'eatre cr\'e9er une fonction pour s\'e9lect facilement les valeurs d'une m\'eame colonne et appeler la fonction avec en param\'e8tre le nom de la colonne.\
-\}\
-	\
-NOTES:\
-Comment animer tout cela ?\
-Essayer d'avoir un truc dynamique: au lieu de partir du principe qu'il y a 4 colonnes + 4 lignes, avoir un code qui fonctionne pour x, y colonnes et donc marche pour toutes les configs possibles. Pont vers l'extension 2048 4D o\'f9 il suffirait de faire tourner 4 grilles 2*2 en m\'eame temps.}
+	cases libres (à mettre à jour à chaque déplacement et à chaque fois que le jouer tuile joue, au début toutes 
+	les cases sont libres). Écrire sous la forme 2*3 par ex ou 2 est la colonne et 3 la ligne (long x largeur)
+};
+
+joueur tuile {
+	choisir aléatoirement une valeur dans "cases libres" puis y ajouter sa valeur
+	NB: doit exister une méthode mieux si on veut pouvoir développer la "version compétitive" du jeu
+};
+
+Attendre une entrée...
+
+Si "déplacement horizontal" {
+	executer ligne par ligne (ici ex ligne 1)
+	créer une liste avec les 4 valeurs de la ligne (ou 0 est une case vide)
+	de gauche à droite ou de droite à gauche (selon déplacement):
+		1 : supprimer les 0
+		2: si deux valeurs sont identiques et cote à cote (regarder la valeur qui suit/précède) alors 
+		   fusionner les deux (somme) et remplacer par un 0 l'une des deux valeurs identiques selon si on va de gauche 
+		   à droite ou de droite à gauche.
+		3 : supprimer les 0
+		4 : completer avec des 0 à la fin/ au début de la liste pour avoir les 4 colonnes/valeurs
+	mettre à jour la grille
+};
+
+Si "déplacement vertical" {
+	adapter l'algo du dessus avec ciblage des listes avec les colonnes
+	exemple de la technique:
+		ex ligne 1: ligne 1 [i]
+		ex colonne 1 : ligne i [1]
+
+	peut être créer une fonction pour sélect facilement les valeurs d'une même colonne et appeler la fonction avec en paramètre 
+	le nom de la colonne.
+}
+	
+NOTES:
+Comment animer tout cela ?
+Essayer d'avoir un truc dynamique: au lieu de partir du principe qu'il y a 4 colonnes + 4 lignes, avoir un code qui fonctionne 
+pour x, y colonnes et donc marche pour toutes les configs possibles. Pont vers l'extension 2048 4D où il suffirait de faire tourner 
+4 grilles 2*2 en même temps.
