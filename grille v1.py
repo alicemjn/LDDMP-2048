@@ -6,7 +6,7 @@ largeur_case = WIDTH // 4
 hauteur_case = HEIGHT // 4
 
 racine = tk.Tk() # Création de la fenêtre racine
-canvas = tk.Canvas(racine, bg="gray", height=HEIGHT, width=WIDTH)
+canvas = tk.Canvas(racine, bg='#cbc0b5', height=HEIGHT, width=WIDTH)
 canvas.grid()
 for i in range(4):
     for j in range(4):
