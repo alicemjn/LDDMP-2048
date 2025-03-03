@@ -1,0 +1,8 @@
+COULEURS DE LA GRILLE:
+case: #cbc0b5
+contour de la case: #b9ada1
+
+COULEURS DES CASES:
+police: #756e66
+2: #ece4db
+4: #ebe0cb
