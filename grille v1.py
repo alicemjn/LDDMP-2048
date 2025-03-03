@@ -1,3 +1,5 @@
+# Alice Méjane
+
 import tkinter as tk
 
 HEIGHT = 500

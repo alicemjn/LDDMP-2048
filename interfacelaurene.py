@@ -1,3 +1,4 @@
+# Lauren Pan
 import tkinter as tk 
 
 HEIGHT = 800
