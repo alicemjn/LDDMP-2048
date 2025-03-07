@@ -62,8 +62,8 @@ def gauche() :
         while len(plateau[i]) != ROWS:
             plateau[i].append(0)
     # mettre à jour la grille
-    fill_grid()
     random_fill()
+    fill_grid()
 
 def droite() :
     #supprimer tt les 0
@@ -79,8 +79,8 @@ def droite() :
         while len(plateau[i]) != ROWS:
             plateau[i].insert(0, 0)
     # mettre à jour la grille
-    fill_grid()
     random_fill()
+    fill_grid()
 
 # Creation de la grille
 
