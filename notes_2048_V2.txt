@@ -1,0 +1,1 @@
+marche uniquement pour des grilles cxc donc carrés (non rectangulaires)

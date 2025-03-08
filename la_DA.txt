@@ -6,3 +6,4 @@ COULEURS DES CASES:
 police: #756e66
 2: #ece4db
 4: #ebe0cb
+2048: #57beec
