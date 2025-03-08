@@ -27,6 +27,7 @@
 
 import tkinter as tk
 import random as Ashkan
+import time
 
 # dictionnaires
 colors = {
@@ -68,6 +69,19 @@ def cube():
             # sinon recommencer (au bout d'un momment on trouvera la place)
             cube()
 
+# fonctions de delais car si on spam les flèches ça se marche dessus
+
+dernier_appel = 0
+delai = 0.1 # Délai en secondes
+
+def peut_executer():
+    global dernier_appel
+    actuel = time.time()
+    if actuel - dernier_appel >= delai:  # Vérifie si assez de temps s'est écoulé
+        dernier_appel = actuel
+        return True
+    return False
+
 # fonctions directionnelles
 
 def haut_key(x, y, y_0):
@@ -76,18 +90,19 @@ def haut_key(x, y, y_0):
         y -= 20
         racine.after(5, haut_key, x, y, y_0)
 
-def haut():
-    x = block.winfo_x()
-    y = block.winfo_y()
-    y_0 = y
-    for i in range(int(y_0/100)-1, -1, -1):
-        if plateau[i][int(x/100)] == 0:
-            y_0 = i * 100
-        else:
-            break
-    haut_key(x, y, y_0)
-    plateau[int(y/100)][int(x/100)] = 0
-    plateau[int(y_0/100)][int(x/100)] = 2
+def haut(event):
+    if peut_executer():
+        x = block.winfo_x()
+        y = block.winfo_y()
+        y_0 = y
+        for i in range(int(y_0/100)-1, -1, -1):
+            if plateau[i][int(x/100)] == 0:
+                y_0 = i * 100
+            else:
+                break
+        haut_key(x, y, y_0)
+        plateau[int(y/100)][int(x/100)] = 0
+        plateau[int(y_0/100)][int(x/100)] = 2
 
 def droite_key(x, y, x_0):
     if x <= x_0:
@@ -95,18 +110,19 @@ def droite_key(x, y, x_0):
         x += 20
         racine.after(5, droite_key, x, y, x_0)
 
-def droite():
-    x = block.winfo_x()
-    y = block.winfo_y()
-    x_0 = x
-    for i in range(int(x/100)+1, len(plateau[0])):
-        if plateau[int(y/100)][i] == 0:
-            x_0 = i * 100
-        else:
-            break
-    droite_key(x, y, x_0)
-    plateau[int(y/100)][int(x/100)] = 0
-    plateau[int(y/100)][int(x_0/100)] = 2
+def droite(event):
+    if peut_executer():
+        x = block.winfo_x()
+        y = block.winfo_y()
+        x_0 = x
+        for i in range(int(x/100)+1, len(plateau[0])):
+            if plateau[int(y/100)][i] == 0:
+                x_0 = i * 100
+            else:
+                break
+        droite_key(x, y, x_0)
+        plateau[int(y/100)][int(x/100)] = 0
+        plateau[int(y/100)][int(x_0/100)] = 2
 
 def gauche_key(x, y, x_0):
     if x >= x_0:
@@ -114,18 +130,19 @@ def gauche_key(x, y, x_0):
         x -= 20
         racine.after(5, gauche_key, x, y, x_0)
 
-def gauche():
-    x = block.winfo_x()
-    y = block.winfo_y()
-    x_0 = x
-    for i in range(int(x/100)-1, -1, -1):
-        if plateau[int(y/100)][i] == 0:
-            x_0 = i * 100
-        else:
-            break
-    gauche_key(x, y, x_0)
-    plateau[int(y/100)][int(x/100)] = 0
-    plateau[int(y/100)][int(x_0/100)] = 2
+def gauche(event):
+    if peut_executer():
+        x = block.winfo_x()
+        y = block.winfo_y()
+        x_0 = x
+        for i in range(int(x/100)-1, -1, -1):
+            if plateau[int(y/100)][i] == 0:
+                x_0 = i * 100
+            else:
+                break
+        gauche_key(x, y, x_0)
+        plateau[int(y/100)][int(x/100)] = 0
+        plateau[int(y/100)][int(x_0/100)] = 2
 
 def bas_key(x, y, y_0):
     if y <= y_0:
@@ -133,24 +150,25 @@ def bas_key(x, y, y_0):
         y += 20
         racine.after(5, bas_key, x, y, y_0)
 
-def bas():
-    x = block.winfo_x()
-    y = block.winfo_y()
-    y_0 = y
-    for i in range(int(y_0/100)+1, len(plateau)):
-        if plateau[i][int(x/100)] == 0:
-            y_0 = i * 100
-        else:
-            break
-    bas_key(x, y, y_0)
-    plateau[int(y/100)][int(x/100)] = 0
-    plateau[int(y_0/100)][int(x/100)] = 2
+def bas(event):
+    if peut_executer():
+        x = block.winfo_x()
+        y = block.winfo_y()
+        y_0 = y
+        for i in range(int(y_0/100)+1, len(plateau)):
+            if plateau[i][int(x/100)] == 0:
+                y_0 = i * 100
+            else:
+                break
+        bas_key(x, y, y_0)
+        plateau[int(y/100)][int(x/100)] = 0
+        plateau[int(y_0/100)][int(x/100)] = 2
 
 # racine
 racine = tk.Tk()
 racine.title('2048')
 
-# grid
+# grille
 container = tk.Frame(racine, height=400, width=400, bg=colors["case"])
 container.grid(row=0, column=0, columnspan=3)
 
@@ -160,13 +178,21 @@ for i in range(4):
 
 #button
 tk.Button(racine, text="cube", command=cube).grid(row=5, column=1)
-    #commandes
-tk.Button(racine, text="haut", command=haut).grid(row=6, column=1)
-tk.Button(racine, text="droite", command=droite).grid(row=7, column=2)
-tk.Button(racine, text="gauche", command=gauche).grid(row=7, column=0)
-tk.Button(racine, text="bas", command=bas).grid(row=8, column=1)
+    
+#commandes
+racine.bind('<Up>', haut)
+racine.bind('<Left>', gauche)
+racine.bind('<Right>', droite)
+racine.bind('<Down>', bas)
 
+#label de tuto
+tk.Label(racine, text="Utiliser les flèches directionnelles pour déplacer le cube bleu", wraplength=400, justify="left").grid(row=6, column=1)
+tk.Label(racine, text='Appuyer sur "cube" pour placer des cubes aléatoirement sur le grille', wraplength=400, justify="left").grid(row=7, column=1)
+tk.Label(racine, text='Un delais entre les clicks est imposé pour éviter de faire crash le jeu et que les appels à fonctions se supperposent', wraplength=400, justify="left").grid(row=8, column=1)
+
+#le block bleu
 block = tk.Frame(container, bg=colors["2048"], height=100, width=100)
 block.place(x=100, y=0)
 
+##
 racine.mainloop()
