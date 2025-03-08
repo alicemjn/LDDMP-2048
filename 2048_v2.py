@@ -1,6 +1,29 @@
 # Erwan
-# Notes: pour tester les animations, supprimer les "#" 
-# dans les parties où y'a du code "masqué"
+# Notes: NE PAS MODIFIER MON CODE SVP !!
+#        -> créer un nouveau fichier Python_vi et copier coller ce code
+
+
+
+
+
+
+
+
+
+
+
+# >>>>>>>>>  NE PAS MODIFIER MON CODE SVP !! <<<<<<<<<<<<<<
+
+
+
+
+
+
+
+
+
+
+
 
 import tkinter as tk
 import random as Ashkan
