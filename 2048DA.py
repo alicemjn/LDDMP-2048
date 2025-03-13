@@ -1,185 +1,134 @@
 import tkinter as tk
 import math
-import random  
+import random
 
+# Game constants
 FPS = 60
 WIDTH, HEIGHT = 600, 600
 ROWS, COLS = 4, 4
-
 RECT_WIDTH, RECT_HEIGHT = WIDTH // COLS, HEIGHT // ROWS
 
 OUTLINE_COLOR = "#BBADA0"
 BACKGROUND_COLOR = "#FAF8EF"
-FONT_SIZE = 40
-OUTLINE_THICKNESS = 8
 FONT_COLOR = "#2D230E"
 FONT = ("Arial", 40, "bold")
 
-MOVE_VEL = 20
-
-def get_random_pos(tiles):
-    while True:
-        row = random.randint(0, ROWS - 1)
-        col = random.randint(0, COLS - 1)
-        if f"{row},{col}" not in tiles:
-            return row, col  
-
-def generate_tiles(canvas):
-    tiles = {}
-    for _ in range(2) :
-        row, col = get_random_pos(tiles)
-        tiles[f"{row},{col}"] = Tile(canvas, row, col, 2) 
-    return tiles 
-def func(x):
-    return x.col
-def move_tiles(tiles, direction):
-    updated=True
-    Blocks=set()
-    
-    if direction == "left":
-        sort_func = lambda x: x.col
-        reverse=False
-        delta=(-MOVE_VEL, 0)
-        boundary_check = lambda tile: tile.col == 0
-        get_next_tile = lambda tile: tile.get(f"{tile.row},{tile.col-1}")
-        merge_check=lambda tile, next_tile: tile.x>next_tile.x+MOVE_VEL
-        move_check=lambda tile,next tile: tile.x>next_tile.x+RECT_WIDTH+MOVE_VEL
-        ceil=True
-
-    elif direction == "right":
-
-        sort_func = lambda x: x.col
-        reverse=True
-        delta=(MOVE_VEL, 0)
-        boundary_check = lambda tile: tile.col == COLS - 1
-        get_next_tile = lambda tile: tile.get(f"{tile.row},{tile.col+1}")
-        merge_check=lambda tile, next_tile: tile.x<next_tile.x-MOVE_VEL
-        move_check=lambda tile,next tile: tile.x+RECT_WIDTH+MOVE_VEL)
-    
-        ceil=False
-
-    elif direction == "up":
-        sort_func = lambda x: x.row
-        reverse=False
-        delta=(0,-MOVE_VEL)
-        boundary_check = lambda tile: tile.row == 0
-        get_next_tile = lambda tile: tile.get(f"{tile.row-1},{tile.col}")
-        merge_check=lambda tile, next_tile: tile.y>next_tile.y+MOVE_VEL
-        move_check=lambda tile,next tile: tile.y>next_tile.y+RECT_HEIGHT+MOVE_VEL
-        ceil=True
-
-    elif direction == "down":
-        sort_func = lambda x: x.row
-        reverse=True
-        delta=(0,MOVE_VEL)
-        boundary_check = lambda tile: tile.row == ROWS - 1
-        get_next_tile = lambda tile: tile.get(f"{tile.row+1},{tile.col}")
-        merge_check=lambda tile, next_tile: tile.y<next_tile.y-MOVE_VEL
-        move_check=lambda tile,next tile: tile.y+RECT_HEIGHT+MOVE_VEL<next_tile.y
-        ceil=False
-    
-    while updated:
-        updated=False
-        sorted_tiles=sorted(tiles.values(), key=sort_func, reverse=reverse)
-
-        for i, tile in enumerate(sorted_tiles):
-            if boundary_check(tile):
-                continue
-
-            next_tile=get_next_tile(tile)
-            if not next_tile:
-                tile.move(delta)
-
-            elif tile.value==next_tile.value and tile not in Blocks next_tile not in Blocks:
-                if merge_check(tile, next_tile):
-                    tile.move(delta)
-                else:
-                    next_tile.value*=2
-                    sorted_tiles.pop(i)
-                    Blocks.add(next_tile) 
-
-            elif move_check(tile, next_tile):
-                tile.move(delta)
-            else:
-                continue       
-            tile.set_pos(ceil)
-            updated=True    
-
-    def update_tiles(tiles, sorted_tiles):
-        tiles.clear()
-        for tile in sorted_tiles:
-            tiles[f"{tile.row},{tile.col}"] = tile
-
-    update_tiles(tiles, sorted_tiles)
-
-    return end_move=set(tiles) 
-
-    def end_move(tiles):
-        if len(tiles)==16:
-            return "lost"
-        
-        row,col=get_random_pos(tiles)
-        tiles[f"{row},{col}"]=Tile(random.choice([2,4]), row, col)
-        return "continue"
+MOVE_VEL = RECT_WIDTH  # Move by one tile size
 
 
-        
-    def update_tiles(tiles, sorted_tiles):
-            tiles.clear()
-            for tile in sorted_tiles:
-                tiles[f"{tile.row},{tile.col}"] = tile
-
-    tile.draw()  
-
-
-while run:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                end_move = move_tiles(tiles, "left")
-            elif event.key == pygame.K_RIGHT:
-                end_move = move_tiles(tiles, "right")
-            elif event.key == pygame.K_UP:
-                end_move = move_tiles(tiles, "up")
-            elif event.key == pygame.K_DOWN:
-                end_move = move_tiles(tiles, "down")
-
-            if end_move == "lost":
-                print("You lost!")
-                run = False
-            elif end_move == "continue":
-                pass
-
-    pygame.display.update()
-    clock.tick(FPS)          
 class Game:
     def __init__(self):
         self.window = tk.Tk()
         self.window.title("2048")
         self.canvas = tk.Canvas(self.window, width=WIDTH, height=HEIGHT, bg=BACKGROUND_COLOR)
         self.canvas.pack()
+
+        self.tiles = {}  # Stores tiles in dictionary with "row,col" as keys
         self.draw_grid()
+        self.generate_tiles()
         
-        # Generate initial tiles
-        self.tiles = generate_tiles(self.canvas)
+        # Key bindings for movement
+        self.window.bind("<Left>", lambda event: self.move_tiles("left"))
+        self.window.bind("<Right>", lambda event: self.move_tiles("right"))
+        self.window.bind("<Up>", lambda event: self.move_tiles("up"))
+        self.window.bind("<Down>", lambda event: self.move_tiles("down"))
 
         self.window.mainloop()
 
     def draw_grid(self):
+        """Draws the 4x4 grid."""
         for row in range(1, ROWS):
             y = row * RECT_HEIGHT
-            self.canvas.create_line(0, y, WIDTH, y, fill=OUTLINE_COLOR, width=OUTLINE_THICKNESS)
+            self.canvas.create_line(0, y, WIDTH, y, fill=OUTLINE_COLOR, width=5)
 
         for col in range(1, COLS):
             x = col * RECT_WIDTH
-            self.canvas.create_line(x, 0, x, HEIGHT, fill=OUTLINE_COLOR, width=OUTLINE_THICKNESS)
+            self.canvas.create_line(x, 0, x, HEIGHT, fill=OUTLINE_COLOR, width=5)
 
-        self.canvas.create_rectangle(0, 0, WIDTH, HEIGHT, outline=OUTLINE_COLOR, width=OUTLINE_THICKNESS)
+    def generate_tiles(self):
+        """Creates two random tiles at the beginning."""
+        for _ in range(2):
+            self.add_random_tile()
+
+    def add_random_tile(self):
+        """Adds a random tile with value 2 or 4 in an empty spot."""
+        if len(self.tiles) >= ROWS * COLS:
+            return  # No space to add new tiles
+
+        while True:
+            row, col = random.randint(0, ROWS - 1), random.randint(0, COLS - 1)
+            if f"{row},{col}" not in self.tiles:
+                self.tiles[f"{row},{col}"] = Tile(self.canvas, row, col, random.choice([2, 4]))
+                break
+
+    def move_tiles(self, direction):
+        """Handles tile movement based on user input (left, right, up, down)."""
+        moved = False
+        merged_positions = set()
+
+        sorted_tiles = sorted(self.tiles.values(), key=lambda tile: (tile.row, tile.col), reverse=(direction in ["right", "down"]))
+
+        for tile in sorted_tiles:
+            old_pos = (tile.row, tile.col)
+
+            while True:
+                new_row, new_col = tile.row, tile.col
+                if direction == "left":
+                    new_col -= 1
+                elif direction == "right":
+                    new_col += 1
+                elif direction == "up":
+                    new_row -= 1
+                elif direction == "down":
+                    new_row += 1
+
+                if not (0 <= new_row < ROWS and 0 <= new_col < COLS):
+                    break  # Stop if it reaches the boundary
+
+                next_tile = self.tiles.get(f"{new_row},{new_col}")
+
+                if next_tile is None:  
+                    tile.row, tile.col = new_row, new_col  # Move tile
+                    moved = True
+                elif next_tile.value == tile.value and (new_row, new_col) not in merged_positions:
+                    next_tile.value *= 2  # Merge tiles
+                    tile.delete()
+                    del self.tiles[f"{old_pos[0]},{old_pos[1]}"]
+                    merged_positions.add((new_row, new_col))
+                    moved = True
+                    break
+                else:
+                    break  # Stop moving if a different tile is blocking the way
+
+        if moved:
+            self.add_random_tile()
+            self.redraw_tiles()
+
+        if self.check_game_over():
+            print("Game Over!")
+
+    def redraw_tiles(self):
+        """Clears and redraws all tiles."""
+        self.canvas.delete("tile")
+        for tile in self.tiles.values():
+            tile.draw()
+
+    def check_game_over(self):
+        """Checks if the game is lost (no moves left)."""
+        if len(self.tiles) < ROWS * COLS:
+            return False  # There are empty spaces, so game is not over
+
+        for tile in self.tiles.values():
+            row, col = tile.row, tile.col
+            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                neighbor = self.tiles.get(f"{row + dr},{col + dc}")
+                if neighbor and neighbor.value == tile.value:
+                    return False  # Move is possible
+        return True  # No moves left
+
 
 class Tile:
+    """Represents a single tile in the 2048 game."""
     COLORS = ["#EEE4DA", "#EDE0C8", "#F2B179", "#F59563", "#F67C5F", "#F65E3B", "#EDCF72",
               "#EDCC61", "#EDC850", "#EDC53F", "#EDC22E", "#3E3933"]
 
@@ -188,31 +137,25 @@ class Tile:
         self.row = row
         self.col = col
         self.value = value
-        self.x = col * RECT_WIDTH
-        self.y = row * RECT_HEIGHT
-        self.color = self.get_color()
-        self.draw()
-
-    def get_color(self):
-        color_index = int(math.log2(self.value)) - 1
-        return Tile.COLORS[color_index] if 0 <= color_index < len(Tile.COLORS) else "#3E3933"
 
     def draw(self):
-        self.canvas.create_rectangle(self.x, self.y, self.x + RECT_WIDTH, self.y + RECT_HEIGHT, fill=self.color)
-        self.canvas.create_text(self.x + RECT_WIDTH // 2, self.y + RECT_HEIGHT // 2, text=str(self.value),
-                                fill=FONT_COLOR, font=FONT)
-     def set_pos(self,ceil=False):
-         if ceil:
-             self.row=math.ceil(self.y/RECT_HEIGHT)
-             self.col=math.ceil(self.x/RECT_WIDTH)
-            else:
-                self.row=math.floor(self.y/RECT_HEIGHT)
-                self.col=math.floor(self.x/RECT_WIDTH)
-           
-     def move(self, delta):
-        self.x += delta[0]
-        self.y += delta[1]
-        self.canvas.move(self.id, *delta)   
+        """Draws the tile on the canvas."""
+        x1, y1 = self.col * RECT_WIDTH, self.row * RECT_HEIGHT
+        x2, y2 = x1 + RECT_WIDTH, y1 + RECT_HEIGHT
+
+        color = self.get_color()
+        self.canvas.create_rectangle(x1, y1, x2, y2, fill=color, tags="tile")
+        self.canvas.create_text((x1 + x2) // 2, (y1 + y2) // 2, text=str(self.value), font=FONT, tags="tile")
+
+    def get_color(self):
+        """Returns the tile's color based on its value."""
+        index = int(math.log2(self.value)) - 1
+        return Tile.COLORS[index] if 0 <= index < len(Tile.COLORS) else "#3E3933"
+
+    def delete(self):
+        """Removes the tile from the canvas."""
+        self.canvas.delete("tile")
+
 
 if __name__ == "__main__":
     Game()
