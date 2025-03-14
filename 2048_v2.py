@@ -84,11 +84,13 @@ def peut_executer():
 
 # fonctions directionnelles
 
+key_interval, key_delay = 20, 5 # 20, 5 pour une animation fluide
+
 def haut_key(x, y, y_0):
     if y >= y_0:
         block.place(x=x, y=y)
-        y -= 20
-        racine.after(5, haut_key, x, y, y_0)
+        y -= key_interval
+        racine.after(key_delay, haut_key, x, y, y_0)
 
 def haut(event):
     if peut_executer():
@@ -107,8 +109,8 @@ def haut(event):
 def droite_key(x, y, x_0):
     if x <= x_0:
         block.place(x=x, y=y)
-        x += 20
-        racine.after(5, droite_key, x, y, x_0)
+        x += key_interval
+        racine.after(key_delay, droite_key, x, y, x_0)
 
 def droite(event):
     if peut_executer():
@@ -127,8 +129,8 @@ def droite(event):
 def gauche_key(x, y, x_0):
     if x >= x_0:
         block.place(x=x, y=y)
-        x -= 20
-        racine.after(5, gauche_key, x, y, x_0)
+        x -= key_interval
+        racine.after(key_delay, gauche_key, x, y, x_0)
 
 def gauche(event):
     if peut_executer():
@@ -147,8 +149,8 @@ def gauche(event):
 def bas_key(x, y, y_0):
     if y <= y_0:
         block.place(x=x, y=y)
-        y += 20
-        racine.after(5, bas_key, x, y, y_0)
+        y += key_interval
+        racine.after(key_delay, bas_key, x, y, y_0)
 
 def bas(event):
     if peut_executer():
@@ -184,6 +186,11 @@ racine.bind('<Up>', haut)
 racine.bind('<Left>', gauche)
 racine.bind('<Right>', droite)
 racine.bind('<Down>', bas)
+
+def touche_cube(event):
+    cube()
+
+racine.bind('c', touche_cube)
 
 #label de tuto
 tk.Label(racine, text="Utiliser les flèches directionnelles pour déplacer le cube bleu", wraplength=400, justify="left").grid(row=6, column=1)
