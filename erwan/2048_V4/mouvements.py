@@ -1,34 +1,23 @@
-# notes de code:
-# version condensé et corrigée de ce que j'ai fait précédement
-# mais il manque les directions haut et bas
-
-LEN = 4
-grille = [[0,0,2,0],
-          [0,3,0,0],
-          [4,0,2,2],
-          [0,0,2,1]]
-
-# def
-
-def afficher() :
+def afficher(grille):
     print(grille[0])
     print(grille[1])
     print(grille[2])
     print(grille[3])
     print(' ')
 
-def matrice_en_int():
+def matrice_en_int(grille):
     for n in range(len(grille)):  # Parcours des lignes
         for i in range(len(grille[n])):  # Parcours des colonnes
             if isinstance(grille[n][i], str):  # Vérifie si c'est une string
                 grille[n][i] = int(grille[n][i])  # Convertit en int
 
-def move(sens, c=0):
+def move(sens, grille, c=0):
     """ Ajoute les colonnes les unes après les autres. 'BLOQUE' les valeurs en mettant des
     guillements pour respecter les régles d'addition du jeu (2+2+4 = 4+4 et pas 8)"""
     # erreurs de définitions potentielles
-    assert sens in ("gauche", "droite","bas","haut"), "La fonction move doit prendre en premier argument la direction du mouvement tel que move('sens') ou sens doit être 'gauche' ou 'droite' ou 'bas' ou 'haut'."
+    assert sens in ("gauche", "droite"), "La fonction move doit prendre en premier argument la direction du mouvement tel que move('sens') ou sens doit être 'gauche' ou 'droite' ou 'bas' ou 'haut'."
 
+    LEN = len(grille)
     # fonctions qui adaptenent les paramètres selon la direction
     if sens == "droite":
         fct_prem = lambda i: (LEN-1)-i
@@ -74,13 +63,9 @@ def move(sens, c=0):
                     grille[N].insert(fin, 0)
                     i = LEN
                 i += 1
-        afficher()
-        move(sens, c+1)
+        afficher(grille)
+        move(sens, grille, c+1)
     else:
-        matrice_en_int() # débloque toutes les valeurs
+        matrice_en_int(grille) # débloque toutes les valeurs
         # cube() # ajoute une valeur en aléatoire
-        afficher() # ... l'affiche
-
-# jeu
-
-move("droite")
+        afficher(grille) # ... l'affiche
