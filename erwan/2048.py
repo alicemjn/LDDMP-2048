@@ -1,5 +1,5 @@
 # Erwan MAUGERI
-# code
+# code à modifier dans un nouveau fichier come d'had
 
 import tkinter as tk
 import random as Ashkan
@@ -24,7 +24,7 @@ btn4.grid(row=3, column=0)
 grille = [[0,0,0,0],
           [0,0,0,0],
           [0,0,0,0],
-          [0,2,2,4]]
+          [0,0,0,0]]
 
 LENGHT, DELAIS = 4, 60
 
@@ -35,6 +35,13 @@ def afficheCarre(carre): # afficher la matrice dans la fenetre
     btn2.config(text=carre[1])
     btn3.config(text=carre[2])
     btn4.config(text=carre[3])
+    # Cette fonction est à modifié
+    # Voir python V1
+    #
+    #
+    #
+    #
+    #
 
 def ajouter_zero_col(n, position):
     grille[n].insert(position, 0)
@@ -93,7 +100,7 @@ def droite(c=0):
                     grille[n].pop(LENGHT-1-i) # on supprime avant dernière
                     ajouter_zero_col(n, 0) # on ajoute des 0 à la fin pour garder la meme taille
                     i = LENGHT
-                elif grille[n][LENGHT-i] == grille[n][LENGHT-1-i] and isinstance(grille[n][LENGHT-1-i], int): # avant dernière = dernière ?
+                elif isinstance(grille[n][LENGHT-i], int) and isinstance(grille[n][LENGHT-1-i], int) and grille[n][LENGHT-i] == grille[n][LENGHT-1-i]: # avant dernière = dernière ?
                     grille[n][LENGHT-i] = str(grille[n][LENGHT-i] + grille[n][LENGHT-1-i]) # on additionne avant dernière et dernière ET on bloque la valeur
                     grille[n].pop(LENGHT-1-i) # on supprime avant dernière
                     ajouter_zero_col(n, 0) # on ajoute des 0 à la fin pour garder la meme taille
