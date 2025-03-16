@@ -26,7 +26,6 @@ def fleche(event, MAJ=None, c=0):
         MAJ = [row[:] for row in grille]
     
     if c < len(MAJ)-1:
-        #### mic mac
         if event == "haut" or event == "bas":
             MAJ = mx.transpose(MAJ)
         MAJ = mv.move(event, MAJ)
@@ -37,7 +36,7 @@ def fleche(event, MAJ=None, c=0):
             MAJ = mx.transpose(MAJ)
             MAJ = mx.transpose(MAJ)
         afficher(MAJ)
-        #time.sleep(0.1)
+        time.sleep(0.1)
         fleche(event, MAJ, c=c+1)
     else:
         if MAJ == grille:
