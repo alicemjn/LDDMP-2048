@@ -26,8 +26,12 @@ def cube(grille):
         grille[y][x] = 2
     else:
         # vérifier que la grille n'est pas pleine
-        if contient_zero() == False:
+        if contient_zero(grille) == False:
             print('perdu')
         else:
             # sinon recommencer (au bout d'un momment on trouvera la place)
-            cube()
+            cube(grille)
+
+def transpose(matrix):
+    taille = len(matrix)
+    return [[matrix[j][i] for j in range(taille)] for i in range(taille)]

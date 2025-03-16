@@ -6,14 +6,7 @@
 import tkinter as tk
 import mouvements as mv
 import matrice as mx
-
-grille = [[0,0,0,0],
-          [0,0,0,0],
-          [0,0,0,0],
-          [0,0,0,0]]
-
-racine = tk.Tk()
-racine.title('2048')
+import time
 
 # affichage de la matrice
 
@@ -23,25 +16,55 @@ def afficher(grille):
 
 # directions
 
-def bouge(event, c=0):
+def fleche(event, MAJ=None, c=0):
     assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
+
+    global grille
+
+    if MAJ is None: # copie de grille sans pointer vers le meme espace mémoire sinon
+                    # on pointe vers la meme liste à la fin (pas bien compris ça)
+        MAJ = [row[:] for row in grille]
     
-    if c < len(grille)-1:
-        MAJ = mv.move(event, grille) # stocke la nouvelle matrice
+    if c < len(MAJ)-1:
+        #### mic mac
+        if event == "haut" or event == "bas":
+            MAJ = mx.transpose(MAJ)
+        MAJ = mv.move(event, MAJ)
+        
+        if event == "haut" or event == "bas":
+            # créer un transpose droite/gauche
+            MAJ = mx.transpose(MAJ)
+            MAJ = mx.transpose(MAJ)
+            MAJ = mx.transpose(MAJ)
         afficher(MAJ)
-        bouge(event, c+1)
+        #time.sleep(0.1)
+        fleche(event, MAJ, c=c+1)
     else:
-        if MAJ == grille: # regarde si la matrice à changé
-            print('pas de déplacements')
+        if MAJ == grille:
+            # meme matrice au début et à la fin
+            #print('pas de mouvements')
+            pass
         else:
-            grille = MAJ # mets à jour la matrice
+            grille = MAJ
             mx.matrice_en_int(grille)
             mx.cube(grille)
-            afficher(MAJ)
+            afficher(grille)
 
-racine.bind('<Up>', lambda event: bouge('haut'))
-racine.bind('<Down>', lambda event: bouge('bas'))
-racine.bind('<Left>', lambda event: bouge('gauche'))
-racine.bind('<Right>', lambda event: bouge('droite'))
+# grille
+
+grille = [[0,0,0,0],
+          [0,0,0,0],
+          [0,0,0,0],
+          [0,0,0,1]]
+
+# éléments visuels (tkinter)
+
+racine = tk.Tk()
+racine.title('2048')
+
+racine.bind('<Up>', lambda event: fleche('haut'))
+racine.bind('<Down>', lambda event: fleche('bas'))
+racine.bind('<Left>', lambda event: fleche('gauche'))
+racine.bind('<Right>', lambda event: fleche('droite'))
 
 racine.mainloop()
