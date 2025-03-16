@@ -1,6 +1,8 @@
 # LDDMP-2048
 LDDMP
 
-membres : Alice Mejane, Laurène Pan, Erwan Maugeri, Danisha Allagapen
+membre d'honneur, boss absolu (aussi appelé supreme leader): Erwan Maugeri
+
+membres inférieurs: Alice Mejane, Laurène Pan, Danisha Allagapen
 
 https://github.com/alicemjn/LDDMP-2048.git
