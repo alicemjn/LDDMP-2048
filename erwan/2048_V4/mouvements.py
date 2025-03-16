@@ -1,23 +1,52 @@
-def afficher(grille):
+import random as Ashkan
+import tkinter as tk
+
+# fonctions
+
+def afficher():
     print(grille[0])
     print(grille[1])
     print(grille[2])
     print(grille[3])
     print(' ')
 
-def matrice_en_int(grille):
+def matrice_en_int():
     for n in range(len(grille)):  # Parcours des lignes
         for i in range(len(grille[n])):  # Parcours des colonnes
             if isinstance(grille[n][i], str):  # Vérifie si c'est une string
                 grille[n][i] = int(grille[n][i])  # Convertit en int
 
-def move(sens, grille, c=0):
+def contient_zero():
+    for ligne in grille:
+        for nombre in ligne:
+            if nombre == 0:
+                return True
+    return False
+
+def cube():
+    """ Cette fonction permet de remplir la grille tout
+     en vérifiant que la place est libre pour un nouveau
+      block """
+    # choisir une position
+    x = Ashkan.randint(0,LEN-1)
+    y = Ashkan.randint(0,LEN-1)
+    # vérifier si y'a déjà quelque chose dans cette case
+    if grille[y][x] == 0:
+        grille[y][x] = 2
+    else:
+        # vérifier que la grille n'est pas pleine
+        if contient_zero() == False:
+            print('perdu')
+        else:
+            # sinon recommencer (au bout d'un momment on trouvera la place)
+            cube()
+
+def move(sens, c=0):
     """ Ajoute les colonnes les unes après les autres. 'BLOQUE' les valeurs en mettant des
     guillements pour respecter les régles d'addition du jeu (2+2+4 = 4+4 et pas 8)"""
     # erreurs de définitions potentielles
     assert sens in ("gauche", "droite"), "La fonction move doit prendre en premier argument la direction du mouvement tel que move('sens') ou sens doit être 'gauche' ou 'droite' ou 'bas' ou 'haut'."
 
-    LEN = len(grille)
     # fonctions qui adaptenent les paramètres selon la direction
     if sens == "droite":
         fct_prem = lambda i: (LEN-1)-i
@@ -63,9 +92,42 @@ def move(sens, grille, c=0):
                     grille[N].insert(fin, 0)
                     i = LEN
                 i += 1
-        afficher(grille)
-        move(sens, grille, c+1)
+        afficher()
+        move(sens, c+1)
     else:
-        matrice_en_int(grille) # débloque toutes les valeurs
-        # cube() # ajoute une valeur en aléatoire
-        afficher(grille) # ... l'affiche
+        matrice_en_int() # débloque toutes les valeurs
+        cube() # ajoute une valeur en aléatoire
+        afficher() # ... l'affiche
+
+# tkinter
+
+grille = [[0,0,0,0],
+          [0,0,0,0],
+          [0,0,0,0],
+          [0,0,0,0]]
+LEN = len(grille)
+
+racine = tk.Tk()
+racine.title('2048')
+
+# directions
+
+def bouge(event):
+    assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
+    if event in {'gauche', 'droite'}:
+        move(event)
+    elif event == 'haut':
+        pass
+    elif event == 'bas':
+        pass
+
+# jeu
+
+#mv.move("droite", grille)
+
+racine.bind('<Up>', lambda event: bouge('haut'))
+racine.bind('<Down>', lambda event: bouge('bas'))
+racine.bind('<Left>', lambda event: bouge('gauche'))
+racine.bind('<Right>', lambda event: bouge('droite'))
+
+racine.mainloop()

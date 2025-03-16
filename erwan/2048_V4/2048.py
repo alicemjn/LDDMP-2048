@@ -6,10 +6,10 @@
 import tkinter as tk
 import mouvements as mv
 
-grille = [[0,0,2,0],
-          [0,3,0,0],
-          [4,0,2,2],
-          [0,0,2,1]]
+grille = [[0,0,0,0],
+          [0,0,0,0],
+          [0,0,0,0],
+          [0,0,0,0]]
 
 racine = tk.Tk()
 racine.title('2048')
@@ -20,6 +20,10 @@ def bouge(event):
     assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
     if event in {'gauche', 'droite'}:
         mv.move(event, grille)
+    elif event == 'haut':
+        pass
+    elif event == 'bas':
+        pass
 
 # jeu
 
