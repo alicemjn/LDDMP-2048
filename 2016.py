@@ -1,114 +1,86 @@
 import tkinter as tk
 import math
-import random
+import random as rd
 
-# Game constants
-FPS = 60
-WIDTH, HEIGHT = 800, 800
-ROWS, COLS = 4, 4
-RECT_WIDTH, RECT_HEIGHT = WIDTH-200 // COLS, HEIGHT-200 // ROWS
 
 OUTLINE_COLOR = "#BBADA0"
 BACKGROUND_COLOR = "#FAF8EF"
 FONT_COLOR = "#2D230E"
 FONT = ("Arial", 40, "bold")
 
+CANVAS_WIDTH, CANVAS_HEIGHT = 600, 600
+WIDTH, HEIGHT = CANVAS_WIDTH, CANVAS_HEIGHT
+ROWS, COLS = 4,4
+RECT_WIDTH = CANVAS_WIDTH // COLS
+RECT_HEIGHT = CANVAS_HEIGHT // ROWS
 MOVE_VEL = RECT_WIDTH  
 
-class Game:
-    def __init__(self):
-        self.window = tk.Tk()
-        self.window.title("2048")
-        self.canvas = tk.Canvas(self.window, width=WIDTH, height=HEIGHT, bg=BACKGROUND_COLOR)
-        self.canvas.pack()
+FPS = 60
+racine=tk.Tk()
+racine.title("2048")
+canevas=tk.Canvas(racine, width=CANVAS_WIDTH, height=CANVAS_HEIGHT, bg="white")
 
-        self.tiles = {}  
-        self.draw_grid()
-        self.generate_tiles()
+occupied_positions=set()
 
-        self.create_buttons()
-        self.window.mainloop()
+def square():
+    empty_cells=[(row,col) for row in range(ROWS) for col in range(COLS) if grid[row][col]==0]
+    
+    if empty_cells:
+        row,col=rd.choice(empty_cells)
+        grid[row][col]=2
+        update_canevas()
+    
+   
+def move_left():
+    moved = False
+    for row in range(ROWS):
+        new_row = [tile for tile in grid[row] if tile != 0]
 
-    def draw_grid(self):
-        for row in range(1, ROWS):
-            y = row * RECT_HEIGHT
-            self.canvas.create_line(0, y, RECT_WIDTH, y, fill=OUTLINE_COLOR, width=5)
-
-        for col in range(1, COLS):
-            x = col * RECT_WIDTH
-            self.canvas.create_line(x, 0, x, RECT_HEIGHT, fill=OUTLINE_COLOR, width=5)
-
-    def generate_tiles(self):
-        for _ in range(2):
-            self.add_random_tile()
-
-    def add_random_tile(self):
-        if len(self.tiles) >= ROWS * COLS:
-            return  # No space to add new tiles
-
-        while True:
-            row, col = random.randint(0, ROWS - 1), random.randint(0, COLS - 1)
-            if f"{row},{col}" not in self.tiles:
-                self.tiles[f"{row},{col}"] = Tile(self.canvas, row, col, random.choice([2, 4]))
-def up(self):
-    for tile in self.tiles.values():
-        tile.delete()
-    self.move_tiles("up")
-
-def down(self):
-    for tile in self.tiles.values():
-        tile.delete()
-    self.move_tiles("down")
-
-def left(self):
-    for tile in self.tiles.values():
-        tile.delete()
-    self.move_tiles("left")
-
-def right(self):    
-    for tile in self.tiles.values():
-        tile.delete()
-    self.move_tiles("right")        
-
-def create_buttons(self):
-    up = tk.Button(self.window, text="up", command=self.up)
-    down = tk.Button(self.window, text="down", command=self.down)
-    left = tk.Button(self.window, text="left", command=self.left)
-    right = tk.Button(self.window, text="right", command=self.right)
-
-    up.pack()
-    down.pack()
-    left.pack()
-    right.pack()
-
-
-
-class Tile:
-    COLORS = ["#EEE4DA", "#EDE0C8", "#F2B179", "#F59563", "#F67C5F", "#F65E3B", "#EDCF72",
-              "#EDCC61", "#EDC850", "#EDC53F", "#EDC22E", "#3E3933"]
-
-    def __init__(self, canvas, row, col, value):
-        self.canvas = canvas
-        self.row = row
-        self.col = col
-        self.value = value
-
-    def draw(self):
-        x1, y1 = self.col * RECT_WIDTH, self.row * RECT_HEIGHT
-        x2, y2 = x1 + RECT_WIDTH, y1 + RECT_HEIGHT
-
-        color = self.get_color()
-        self.canvas.create_rectangle(x1, y1, x2, y2, fill=color, tags="tile")
-        self.canvas.create_text((x1 + x2) // 2, (y1 + y2) // 2, text=str(self.value), font=FONT, tags="tile")
-
-    def get_color(self):
-        index = int(math.log2(self.value)) - 1
-        return Tile.COLORS[index] if 0 <= index < len(Tile.COLORS) else "#3E3933"
-
-    def delete(self):
-        self.canvas.delete("tile")
+        i = 0
+        while i < len(new_row) - 1:
+            if new_row[i] == new_row[i + 1]:
+                new_row[i] *= 2
+                del new_row[i + 1]
+                new_row.append(0)
+                moved = True
+            i += 1
         
+        new_row += [0] * (COLS - len(new_row))
+
+        if grid[row] != new_row:
+            grid[row] = new_row
+            moved = True
+    if moved:
+        square()
+        update_canevas()
+
+grid = [[0] * COLS for _ in range(ROWS)]    
+def update_canevas():
+    canevas.delete("all")
+    draw_grid()
+    for row in range(ROWS):
+        for col in range(COLS):
+            if grid[row][col] != 0:
+                x0, y0 = col * RECT_WIDTH, row * RECT_HEIGHT
+                x1, y1 = x0 + RECT_WIDTH, y0 + RECT_HEIGHT
+                canevas.create_rectangle(x0, y0, x1, y1, fill="blue")
+                canevas.create_text((x0 + x1) // 2, (y0 + y1) // 2, text=str(grid[row][col]), font=("arial", 50), fill="white")
+
+def draw_grid():   
+    canevas.create_line(CANVAS_WIDTH/4,0,CANVAS_WIDTH/4,CANVAS_HEIGHT)
+    canevas.create_line(CANVAS_WIDTH/2,0,CANVAS_WIDTH/2,CANVAS_HEIGHT)
+    canevas.create_line(CANVAS_WIDTH*0.75,0,CANVAS_WIDTH*0.75,CANVAS_HEIGHT)
+    canevas.create_line(0,CANVAS_HEIGHT/4,CANVAS_WIDTH,CANVAS_HEIGHT/4)
+    canevas.create_line(0,CANVAS_HEIGHT/2,CANVAS_WIDTH,CANVAS_HEIGHT/2)
+    canevas.create_line(0,CANVAS_HEIGHT*0.75,CANVAS_WIDTH,CANVAS_HEIGHT*0.75)
+left=tk.Button(racine,text="left",command=move_left)
+carre=tk.Button(racine,text="carre",command=square)
+grid_button=tk.Button(racine,text="lines",command=draw_grid)
+carre.grid(row=0,column=2)
+canevas.grid(row=0,column=0)
+grid_button.grid(row=0,column=1)
+left.grid(row=0,column=3)
 
 
-if __name__ == "__main__":
-    Game()
+racine.mainloop()
+
