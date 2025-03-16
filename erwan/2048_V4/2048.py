@@ -16,14 +16,14 @@ racine.title('2048')
 
 # directions
 
-def bouge(event):
+def bouge(event, c=0):
     assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
-    if event in {'gauche', 'droite'}:
-        mv.move(event, grille)
-    elif event == 'haut':
-        pass
-    elif event == 'bas':
-        pass
+    
+    if c < len(grille)-1:
+        print(mv.move(event, grille))
+        bouge(event, c+1)
+    else:
+        print('fini')
 
 # jeu
 
