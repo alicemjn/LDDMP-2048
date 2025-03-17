@@ -1,12 +1,22 @@
 # Lauren Pan
 import tkinter as tk
-import random as rd
+
+L=[[0,0,2,0],[2,0,0,0],[0,0,0,2],[2,0,0,0]]
+
 
 colors = { "case": "#cbc0b5",
            "contour": "#b9ada1",
            "font": "#756e66",
            "2": "#ece4db",
            "4": "#ebe0cb",
+           "8":"#e8b481",
+           "16":"#e89e6c",
+           "32":"#e68367",
+           "64":"#e46847",
+           "128":"#e8d07f",
+           "256":"#e8cd72",
+           "512":"#edcc61",
+           "1024":"#e4c655",
            "2048" : "#57beec"}
 
 HEIGHT = 400
@@ -24,7 +34,5 @@ racine.title("2048")
 canvas = tk.Frame(racine,bg=colors["case"], height=HEIGHT, width=WIDTH)
 canvas.grid(row=0, column=0)
 
-bloc=tk.Frame(canvas,bg=colors["2"],height=largeur_case, width=hauteur_case)
-bloc.place(x=(rd.randint(0,3))*100,y=(rd.randint(0,3))*100)
 
 racine.mainloop()
