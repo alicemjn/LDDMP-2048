@@ -35,3 +35,10 @@ def cube(grille):
 def transpose(matrix):
     taille = len(matrix)
     return [[matrix[j][i] for j in range(taille)] for i in range(taille)]
+
+grille = [[10,10,10,10],
+          [10,10,10,10],
+          [10,10,10,10],
+          [10,10,10,10]]
+
+print(contient_zero(grille))
