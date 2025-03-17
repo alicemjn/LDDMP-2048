@@ -62,12 +62,11 @@ grille = [[0,0,0,0],
 
 racine = tk.Tk()
 racine.title('2048')
-racine.config(padx="50px", pady="20px")
 
-btn1 = tk.Label(racine, text="", font=("system", 48))
-btn2 = tk.Label(racine, text="", font=("system", 48))
-btn3 = tk.Label(racine, text="", font=("system", 48))
-btn4 = tk.Label(racine, text="", font=("system", 48))
+btn1 = tk.Label(racine, text="")
+btn2 = tk.Label(racine, text="")
+btn3 = tk.Label(racine, text="")
+btn4 = tk.Label(racine, text="")
 
 btn1.grid(row=0, column=0)
 btn2.grid(row=1, column=0)
