@@ -19,6 +19,8 @@ def afficher(grille):
     btn3.config(text=grille[2])
     btn4.config(text=grille[3])
 
+# fonctions de déplacements
+
 def fleche(event, MAJ=None, c=0):
     assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
 
@@ -72,6 +74,8 @@ btn1.grid(row=0, column=0)
 btn2.grid(row=1, column=0)
 btn3.grid(row=2, column=0)
 btn4.grid(row=3, column=0)
+
+# gestion de l'entrée
 
 racine.bind('<Up>', lambda event: fleche('haut'))
 racine.bind('<Down>', lambda event: fleche('bas'))
