@@ -17,11 +17,13 @@ for line in matrix_transpose:
     print(line)
 
 matrix_transpose = transpose(matrix_transpose)
+'''cette fonction permet de transposer la matrice a gauche'''
 print("transpose gauche:")   
 for line in matrix_transpose:
     print(line) 
 
 matrix_transpose_right = transpose_right(matrix_transpose)
+'''cette fonction permet de transposer la matrice a droite'''
 print("transpose droite:")   
 for line in matrix_transpose_right:
     print(line)     
