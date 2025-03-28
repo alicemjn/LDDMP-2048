@@ -11,12 +11,8 @@ for line in matrix:
 def transpose_right(matrix):
     return[list(reversed(row)) for row in transpose(matrix)]
 
-matrix_transpose = transpose(matrix)
-print("transpose")
-for line in matrix_transpose:
-    print(line)
 
-matrix_transpose = transpose(matrix_transpose)
+matrix_transpose = transpose(matrix)
 '''cette fonction permet de transposer la matrice a gauche'''
 print("transpose gauche:")   
 for line in matrix_transpose:
