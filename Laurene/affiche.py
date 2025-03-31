@@ -1,7 +1,7 @@
 # Lauren Pan
 import tkinter as tk
 
-L=[[0,0,2,0],[2,0,0,0],[0,0,0,2],[2,0,0,0]]
+L=[[for i]]
 
 
 colors = { "case": "#cbc0b5",
