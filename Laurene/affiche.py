@@ -1,7 +1,7 @@
 # Lauren Pan
 import tkinter as tk
 
-L=[[for i]]
+
 
 
 colors = { "case": "#cbc0b5",
