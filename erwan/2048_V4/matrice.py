@@ -23,7 +23,10 @@ def cube(grille):
     y = Ashkan.randint(0,LEN-1)
     # vérifier si y'a déjà quelque chose dans cette case
     if grille[y][x] == 0:
-        grille[y][x] = 2
+        # choisir entre ajouter un 4 et un 2 (un 2 est 9 fois plus probable)
+        quatre_ou_deux = 2 if Ashkan.randint(1, 9) != 9 else 4
+        # ajouter un nouveau carré
+        grille[y][x] = quatre_ou_deux
     else:
         # vérifier que la grille n'est pas pleine
         if contient_zero(grille) == False:
@@ -35,10 +38,3 @@ def cube(grille):
 def transpose(matrix):
     taille = len(matrix)
     return [[matrix[j][i] for j in range(taille)] for i in range(taille)]
-
-grille = [[10,10,10,10],
-          [10,10,10,10],
-          [10,10,10,10],
-          [10,10,10,10]]
-
-print(contient_zero(grille))
