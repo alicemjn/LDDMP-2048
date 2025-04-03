@@ -8,8 +8,10 @@ def affichage(grille, labels, pack):
 
 def color_case(valeur, pack):
     if isinstance(valeur, str) :
-        if int(valeur.split('_')[1]) > 4: return globals()[pack]["white"]
-        else: return globals()[pack]["black"]
+        if valeur in globals()[pack]:
+            return globals()[pack][valeur]
+        else:
+            return globals()[pack]["default_font"]
     else:
         if valeur in globals()[pack]:
             return globals()[pack][valeur] # retourne la couleur associée à la valeur dans le dictionnaire
@@ -21,8 +23,9 @@ default = {
     # bordures de la grille
     "background": "#b9ada1",
     # couleurs de la police
-    "white": "#ffffff",
-    "black": "#756e66",
+    "default_font": "#ffffff",
+    "fg_2": "#756e66",
+    "fg_4": "#756e66",
     # couleurs des cases
     0:"#cdc1b4", 2:"#eee4da" , 
     4: "#ebe0cb", 8:"#e8b481", 
@@ -32,13 +35,32 @@ default = {
     1024:"#e4c655", 2048: "#edc22e", 
     4096: "#57beec"}
 
+modern = {
+    ### packs de couleurs Moderne
+    # bordures de la grille
+    "background": "#7E5460",
+    # couleurs de la police
+    # couleurs de la police
+    "default_font": "#FFFFFF",
+    "fg_2": "#424952",
+    "fg_4": "#424952",
+    "fg_256": "#424952",
+    "fg_512": "#424952",
+    # couleurs des cases
+    0:"#997478", 2:"#FFF3E3" ,
+    4: "#FFE9CB", 8:"#FFC378", 
+    16:"#FFA762", 32:"#FF8357", 
+    64:"#FF5F58", 128:"black",
+    256:"#94CD91", 512:"#5ACCB1",
+    1024:"#00CAD7", 2048: "#03C1EF"}
+
 billard = {
-    ### packs de couleurs KILL BILL
+    ### packs de couleurs inspiré des couleurs des boules de billard
     # bordures de la grille
     "background": "#764423",
     # couleurs de la police
-    "white": "#ffffff",
-    "black": "#000000",
+    "default_font": "#ffffff",
+    "fg_2": "#000000",
     # couleurs des cases
     0:"#37a143", 2:"#f7f5e3" ,
     4: "#FDBD03", 8:"#FA0502", 
@@ -47,12 +69,11 @@ billard = {
     256:"#FD6F00", 512:"#090504"}
 
 squid_game = {
-    ### packs de couleurs KILL BILL
+    ### packs de couleurs inspiré de la série Squid Game
     # bordures de la grille
     "background": "#744832",
     # couleurs de la police
-    "white": "#ffffff",
-    "black": "#ffffff",
+    "default_font": "#ffffff",
     # couleurs des cases
     0:"#E6AA76", 2:"#ED267A" ,
     4: "#186F68", 8:"#395A73", 
@@ -62,12 +83,11 @@ squid_game = {
     1024:"#BBC6D4", 2048: "#E99D0E"}
 
 barbie = {
-    ### packs de couleurs KILL BILL
+    ### packs de couleurs Barbie
     # bordures de la grille
     "background": "#02B9E3",
     # couleurs de la police
-    "white": "#ffffff",
-    "black": "#ffffff",
+    "default_font": "#FFFFFF",
     # couleurs des cases
     0:"#76cde0", 2:"#F29DD9" ,
     4: "#EE75C5", 8:"#F75EBA", 

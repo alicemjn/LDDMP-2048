@@ -96,10 +96,10 @@ grille = [[0,0,0,0],
           [0,0,0,0]]
 
 # grille pour tester les paks => (supprimer le # avant grille)
-#grille = [[0,0,0,0],[2,4,8,16],[32,64,128,256],[1028,2048,4086,4096*2]]
+#grille = [[0,0,0,512],[2,4,8,16],[32,64,128,256],[1024,2048,4086,4096*2]]
 
 # grosse grille 8x8 pour tester => (supprimer le # avant grille)
-#grille = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
+grille = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
 
 # éléments visuels (tkinter)
 
@@ -117,7 +117,7 @@ label_vitesse.grid(row=1, column=1)
 
 # pack de couleurs
 
-choix = ["default", "billard", "squid_game", "barbie"]
+choix = ["default", "modern", "billard", "squid_game", "barbie"]
 
 def change_pack():
     global pack
