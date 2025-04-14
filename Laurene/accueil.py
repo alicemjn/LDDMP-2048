@@ -1,4 +1,4 @@
-
+# Lauren Pan
 import tkinter as tk
 
 
@@ -20,10 +20,12 @@ colors = { "case": "#cbc0b5",
            "2048" : "#57beec"}
 
 
+
 racine= tk.Tk()
 racine.title("HOME")
 
-btn=tk.label()
+
 
 
 racine.mainloop()
+
