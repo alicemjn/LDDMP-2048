@@ -32,7 +32,7 @@ def cube(grille):
         return "perdu"
 
 var=cube(grille)        
-    if isinstance(var,list):
-        return grille
-    elif isinstance(var,str):
+if isinstance(var,list):
+         return grille
+elif isinstance(var,str):
       print("perdu")  
