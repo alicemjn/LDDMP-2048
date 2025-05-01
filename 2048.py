@@ -149,7 +149,7 @@ menubar.add_cascade(label="À propos", menu=about_menu)
 about_menu.add_command(label="README", command=lambda: ouvrir_fichier_ext('readme.md'))
 about_menu.add_command(label="Github", command=lambda: ouvrir_fichier_ext('https://github.com/alicemjn/LDDMP-2048'))
 about_menu.add_command(label="Méthode de travail", command=lambda: ouvrir_fichier_ext('TRAVAIL.md'))
-about_menu.add_command(label="version: v4", state='disabled')
+about_menu.add_command(label="version: v4.1", state='disabled')
 
 # titre
 
