@@ -1,6 +1,6 @@
 # Méthode de travail pour le projet 2048
 
-Pour la répartition du travail et la répartition des tâches, voir "README.md".
+Pour la répartition du travail et la répartition des tâches, voir [README.md](./README.md).
 
 ## Méthode pour travailler efficacement
 On commence par brainstormer en groupe (au cours de la semaine, par message ou en cours de TD), puis il y a un travail personnel, la plupart du temps sur feuille. En effet il est plus rapide de tester un algorithme sur feuille plutôt que de se lancer tête baisser dans le code et perdre beaucoup de temps. On a par exemple attendu d'être bien fixer sur les mécaniques de jeu avant de coder quoi que ce soit de l'inteface graphique en général. 
