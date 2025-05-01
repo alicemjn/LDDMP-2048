@@ -1,9 +1,7 @@
 def move(sens, grille):
     """ Ajoute les colonnes les unes après les autres. 'BLOQUE' les valeurs en mettant des
-    guillements pour respecter les régles d'addition du jeu (2+2+4 = 4+4 et pas 8)"""
-    # erreurs de définitions potentielles
-    #assert sens in ("gauche", "droite"), "La fonction move doit prendre en premier argument la direction du mouvement tel que move('sens') ou sens doit être 'gauche' ou 'droite' ou 'bas' ou 'haut'."
-
+    guillements pour respecter les régles d'addition du jeu (2+2+4 = 4+4 et pas 8) """
+    
     LEN = len(grille)
     # fonctions qui adaptenent les paramètres selon la direction
     if sens == "droite" or sens == "bas":

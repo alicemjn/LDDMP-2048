@@ -1,8 +1,3 @@
-# notes de code:
-# version condensé et corrigée de ce que j'ai fait précédement
-# mais il manque les directions haut et bas
-# pour cela trabsposer la matrice
-
 import tkinter as tk
 import mouvements as mv
 import matrice as mx
@@ -39,7 +34,7 @@ def afficher(grille):
 
 # fonctions de déplacements
 
-DELAIS = 100 # ICI régler le délais de l'animation
+DELAIS = 65 # ICI régler le délais de l'animation
 
 def fleche(event, MAJ=None, c=0):
     assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
@@ -72,22 +67,6 @@ def fleche(event, MAJ=None, c=0):
             mx.matrice_en_int(grille)
             mx.cube(grille)
             afficher(grille)
-
-# fonctions de vitesse de défilment (provisoire)
-
-def lent() :
-    global DELAIS
-    DELAIS += 5
-    texte = str(DELAIS) + " ms"
-    label_vitesse.config(text=texte)
-
-def vite() :
-    global DELAIS
-    DELAIS -= 5
-    texte = str(DELAIS) + " ms"
-    label_vitesse.config(text=texte)
-
-
 # grille
 
 grille = [[0,0,0,0],
@@ -106,14 +85,35 @@ grille = [[0,0,0,0],
 racine = tk.Tk()
 racine.title('2048')
 
-btn1 = tk.Button(racine, text="plus lent", command=lent)
-btn2 = tk.Button(racine, text="plus vite", command=vite)
-texte = str(DELAIS) + " ms"
-label_vitesse = tk.Label(racine, text=texte)
+# menu
 
-btn1.grid(row=1, column=2)
-btn2.grid(row=1, column=0)
-label_vitesse.grid(row=1, column=1)
+# création du container
+menubar = tk.Menu(racine)
+racine.config(menu=menubar)
+
+# Menu "à propos"
+
+import os
+import platform
+
+def ouvrir_fichier_ext(nom):
+    """ Cette fonction permet d'ouvrir des fichiers avec leur application par défault dans 
+    l'os de l'utilisateur. Elle commence par regarder l'os de l'utilisateur et ouvre le 
+    fichier via le nom donné en argument. """
+
+    systeme = platform.system() # regarde l'os parce que pas forcément la meme commande
+    if systeme == 'Windows':
+        os.startfile(nom)
+    elif systeme == 'Darwin':
+        os.system('open '+nom)
+    elif systeme == 'Linux':
+        os.system('xdg-open '+nom)
+
+about_menu = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="À propos", menu=about_menu)
+about_menu.add_command(label="README.md", command=lambda: ouvrir_fichier_ext('readme.md'))
+about_menu.add_command(label="Github", command=lambda: ouvrir_fichier_ext('https://github.com/alicemjn/LDDMP-2048'))
+about_menu.add_command(label="Méthode de travail", command=lambda: ouvrir_fichier_ext('travail.md'))
 
 # pack de couleurs
 

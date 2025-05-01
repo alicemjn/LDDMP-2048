@@ -16,7 +16,9 @@ def contient_zero(grille):
     return False
 
 def cube(grille):
-    """ Cette fonction permet de remplir la grille tout en vérifiant que la place est libre pour un nouveau block """
+    """ Cette fonction permet de remplir la grille tout en vérifiant que la place est 
+    libre pour un nouveau block """
+    
     LEN = len(grille)
     # choisir une position
     x = Ashkan.randint(0,LEN-1)
