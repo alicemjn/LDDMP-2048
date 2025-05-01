@@ -44,6 +44,7 @@ modern = {
     "default_font": "#FFFFFF",
     "fg_2": "#424952",
     "fg_4": "#424952",
+    "fg_8": "#424952",
     "fg_256": "#424952",
     "fg_512": "#424952",
     # couleurs des cases
