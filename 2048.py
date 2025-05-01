@@ -7,6 +7,7 @@ import affichage as aff
 
 racine = tk.Tk()
 racine.title('2048')
+racine.resizable(False, False)
 
 labels = {} # pour cibler les éléments plus tard, non dynamique puisque qu'il s'agit juste de ciblage
 
