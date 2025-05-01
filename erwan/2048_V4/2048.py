@@ -5,6 +5,9 @@ import affichage as aff
 
 # Spawn
 
+racine = tk.Tk()
+racine.title('2048')
+
 labels = {} # pour cibler les éléments plus tard, non dynamique puisque qu'il s'agit juste de ciblage
 
 def spawn(grille, racine, pack):
@@ -15,13 +18,13 @@ def spawn(grille, racine, pack):
 
     # afficher le Canvas
     container = tk.Canvas(racine, width=Grid_DIM, height=Grid_DIM, bg=getattr(aff, pack)["background"], highlightthickness=0)
-    container.grid(row=0, column=0, padx=0, pady=0, columnspan=3)
+    container.grid(row=1, column=0, padx=30, pady=(80, 30))
 
     #remplir le canvas
     for i in range(n):
         for j in range(n):
             # les labels
-            new_Label = tk.Label(container, font=("Helvetica", 30, "bold"))
+            new_Label = tk.Label(container, font=("Helvetica, Arial, sans-serif", 40, "bold"))
             new_Label.place(x=10 + j*(DIM+10), y=10 + i*(DIM+10), width=DIM, height=DIM)
             labels[(i,j)] = new_Label
 
@@ -30,7 +33,7 @@ def spawn(grille, racine, pack):
 def afficher(grille):
     """ Cette fonction permet d'envoyer en packets le dictionnaire label et la grille vers la fonction 
     d'affichage stocké dans le fichier dédié aux fonctions d'affichage """
-    aff.affichage(grille, labels, pack)
+    aff.affichage(grille, labels, pack_value.get())
 
 # fonctions de déplacements
 
@@ -60,46 +63,31 @@ def fleche(event, MAJ=None, c=0):
     else:
         if MAJ == grille:
             # meme matrice au début et à la fin
-            print('pas de mouvements')
             pass
         else:
             grille = MAJ
             mx.matrice_en_int(grille)
             mx.cube(grille)
             afficher(grille)
-# grille
+            score = mx.score(grille)
+            scoreBlock_nbr.config(text=score[0])
+            bestBlock_nbr.config(text=score[1])
 
-grille = [[0,0,0,0],
-          [0,0,0,0],
-          [0,0,0,0],
-          [0,0,0,0]]
+# pack de couleur
 
-# grille pour tester les paks => (supprimer le # avant grille)
-#grille = [[0,0,0,512],[2,4,8,16],[32,64,128,256],[1024,2048,4086,4096*2]]
+def select_pack():
+    spawn(grille, racine, pack_value.get())
+    afficher(grille)
 
-# grosse grille 8x8 pour tester => (supprimer le # avant grille)
-#grille = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
-
-# éléments visuels (tkinter)
-
-racine = tk.Tk()
-racine.title('2048')
-
-# menu
-
-# création du container
-menubar = tk.Menu(racine)
-racine.config(menu=menubar)
-
-# Menu "à propos"
-
-import os
-import platform
+# autres fonctions
 
 def ouvrir_fichier_ext(nom):
     """ Cette fonction permet d'ouvrir des fichiers avec leur application par défault dans 
     l'os de l'utilisateur. Elle commence par regarder l'os de l'utilisateur et ouvre le 
     fichier via le nom donné en argument. """
+
+    import os
+    import platform
 
     systeme = platform.system() # regarde l'os parce que pas forcément la meme commande
     if systeme == 'Windows':
@@ -109,28 +97,86 @@ def ouvrir_fichier_ext(nom):
     elif systeme == 'Linux':
         os.system('xdg-open '+nom)
 
-about_menu = tk.Menu(menubar, tearoff=0)
-menubar.add_cascade(label="À propos", menu=about_menu)
-about_menu.add_command(label="README.md", command=lambda: ouvrir_fichier_ext('readme.md'))
-about_menu.add_command(label="Github", command=lambda: ouvrir_fichier_ext('https://github.com/alicemjn/LDDMP-2048'))
-about_menu.add_command(label="Méthode de travail", command=lambda: ouvrir_fichier_ext('travail.md'))
+# grille
 
-# pack de couleurs
-
-choix = ["default", "modern", "billard", "squid_game", "barbie"]
-
-def change_pack():
-    global pack
-    current_index = choix.index(pack)
-    next_index = (current_index + 1) % len(choix)
-    pack = choix[next_index]
-    spawn(grille, racine, pack)
-    afficher(grille)
+grille = [[0,0,0,0],
+          [0,0,0,0],
+          [0,0,0,0],
+          [0,0,0,0]]
 
 pack = "default"
+pack_value = tk.StringVar(value="default")
 
-btn3 = tk.Button(racine, text="changer de pack", command=change_pack)
-btn3.grid(row=2, column=1)
+# grille pour tester les paks => (supprimer le # avant grille)
+#grille = [[0,0,0,512],[2,4,8,16],[32,64,128,256],[1024,2048,4086,4096*2]]
+
+# grosse grille 8x8 pour tester => (supprimer le # avant grille)
+#grille = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
+
+
+
+#### Menu
+
+# création du container
+
+menubar = tk.Menu(racine)
+racine.config(menu=menubar)
+
+# Menu "Fichier"
+
+file_menu = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="Fichier", menu=file_menu)
+
+file_menu.add_command(label="Enregistrer le fichier JSON", accelerator="Cmd+S")
+file_menu.add_command(label="Importer...", accelerator="Cmd+O")
+
+# Menu "Pack de couleur"
+
+pack_menu = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="Pack de couleur", menu=pack_menu)
+
+pack_menu.add_radiobutton(label="Par default", value="default", variable=pack_value, command=select_pack)
+pack_menu.add_radiobutton(label="Moderne", value="moderne", variable=pack_value, command=select_pack)
+pack_menu.add_radiobutton(label="Billard", value="billard", variable=pack_value, command=select_pack)
+pack_menu.add_radiobutton(label="Squid Game", value="squid_game", variable=pack_value, command=select_pack)
+pack_menu.add_radiobutton(label="Barbie", value="barbie", variable=pack_value, command=select_pack)
+
+# Menu "à propos"
+
+about_menu = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="À propos", menu=about_menu)
+
+about_menu.add_command(label="README", command=lambda: ouvrir_fichier_ext('readme.md'))
+about_menu.add_command(label="Github", command=lambda: ouvrir_fichier_ext('https://github.com/alicemjn/LDDMP-2048'))
+about_menu.add_command(label="Méthode de travail", command=lambda: ouvrir_fichier_ext('TRAVAIL.md'))
+about_menu.add_command(label="version: v4", state='disabled')
+
+# titre
+
+title2048 = tk.Label(racine, text="2048", font=("Helvetica, Arial, sans-serif", 50, "bold"), fg="#776E65")
+title2048.place(x=30, height=80)
+
+# score
+
+scoreBlock_container = tk.Label(racine, bg="#BCAC9F")
+scoreBlock_container.place(x=230, y=15, height=50, width=100)
+
+scoreBlock_text = tk.Label(scoreBlock_container, text="SCORE", font=("Helvetica, Arial, sans-serif", 15), bg="#BCAC9F", fg="#EEE4DA")
+scoreBlock_text.place(x=0, height=20, width=100)
+
+scoreBlock_nbr = tk.Label(scoreBlock_container, text="0", font=("Helvetica, Arial, sans-serif", 25), bg="#BCAC9F", fg="#FFFFFF")
+scoreBlock_nbr.place(x=0, y=20, height=20, width=100)
+
+# best block
+
+bestBlock_container = tk.Label(racine, bg="#BCAC9F")
+bestBlock_container.place(x=340, y=15, height=50, width=100)
+
+bestBlock_text = tk.Label(bestBlock_container, text="Meilleur", font=("Helvetica, Arial, sans-serif", 15), bg="#BCAC9F", fg="#EEE4DA")
+bestBlock_text.place(x=0, height=20, width=100)
+
+bestBlock_nbr = tk.Label(bestBlock_container, text="0", font=("Helvetica, Arial, sans-serif", 25), bg="#BCAC9F", fg="#FFFFFF")
+bestBlock_nbr.place(x=0, y=20, height=20, width=100)
 
 # gestion de l'entrée
 
@@ -142,7 +188,7 @@ racine.bind('<Right>', lambda event: fleche('droite'))
 # initialisation
 
 mx.cube(grille)
-spawn(grille, racine, pack)
+spawn(grille, racine, pack_value.get())
 afficher(grille)
 
 # boucle

@@ -40,3 +40,16 @@ def cube(grille):
 def transpose(matrix):
     taille = len(matrix)
     return [[matrix[j][i] for j in range(taille)] for i in range(taille)]
+
+def score(grille):
+    """ Cet fonction renvoie la somme de ts les blocks de la grille et
+    la valeur du plus gros block"""
+    
+    score = 0
+    max_value = 0
+    for row in grille:
+        for value in row:
+          score += value
+          if value > max_value:
+             max_value = value
+    return (score,max_value)

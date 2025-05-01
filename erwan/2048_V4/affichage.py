@@ -35,7 +35,7 @@ default = {
     1024:"#e4c655", 2048: "#edc22e", 
     4096: "#57beec"}
 
-modern = {
+moderne = {
     ### packs de couleurs Moderne
     # bordures de la grille
     "background": "#7E5460",
