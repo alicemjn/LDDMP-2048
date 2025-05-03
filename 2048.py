@@ -28,6 +28,9 @@ def spawn(grille, racine, pack):
             new_Label = tk.Label(container, font=("Helvetica, Arial, sans-serif", 40, "bold"))
             new_Label.place(x=10 + j*(DIM+10), y=10 + i*(DIM+10), width=DIM, height=DIM)
             labels[(i,j)] = new_Label
+    score = mx.score(grille)
+    scoreBlock_nbr.config(text=score[0])
+    bestBlock_nbr.config(text=score[1])
 
 # affichage
 
