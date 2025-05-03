@@ -24,10 +24,11 @@ def valeur( M , i , j ):
           dessous=M[i+1][j]
           if dessous ==2:
                M[i][j]=4
-               return
-          if dessous ==4:
+          elif dessous ==4:
                M[i][j]=2
-               return
+          else:
+               M[i][j]=2 if Afshkan.randint(1,10)<=9 else 4
+               
 
 
        
@@ -42,7 +43,7 @@ def cube(M,compteur_mouvement):
                     case_vide.append(j)
            if case_vide:
                     index_case=Afshkan.randint(0,len(case_vide)-1)
-                    M[i][index_case]= 2
+                    valeur (M, i , index_case)
                     print (M)
                     break
            

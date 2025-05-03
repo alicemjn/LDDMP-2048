@@ -20,15 +20,16 @@ def compteur (mouvement):
 
 def valeur( M , i , j ):
      ligne=len(M)
-     if i +1 < ligne:
-          dessous=M[i+1][j]
-          if dessous ==2:
+     if i+1 < ligne:
+       dessous=M[i+1][j]
+       if dessous ==2:
                M[i][j]=4
-               return
-          if dessous ==4:
+       elif dessous ==4:
                M[i][j]=2
-               return
-
+     
+           
+     print (M)
+               
 
        
 def cube(M,compteur_mouvement):
