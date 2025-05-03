@@ -112,7 +112,7 @@ pack = "default"
 pack_value = tk.StringVar(value="default")
 
 # grille pour tester les paks => (supprimer le # avant grille)
-#grille = [[0,0,0,512],[2,4,8,16],[32,64,128,256],[1024,2048,4086,4096*2]]
+grille = [[0,0,0,512],[2,4,8,16],[32,64,128,256],[1024,2048,4086,4096*2]]
 
 # grosse grille 8x8 pour tester => (supprimer le # avant grille)
 #grille = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
@@ -144,6 +144,8 @@ pack_menu.add_radiobutton(label="Moderne", value="moderne", variable=pack_value,
 pack_menu.add_radiobutton(label="Billard", value="billard", variable=pack_value, command=select_pack)
 pack_menu.add_radiobutton(label="Squid Game", value="squid_game", variable=pack_value, command=select_pack)
 pack_menu.add_radiobutton(label="Barbie", value="barbie", variable=pack_value, command=select_pack)
+pack_menu.add_radiobutton(label="Android", value="android", variable=pack_value, command=select_pack)
+pack_menu.add_radiobutton(label="Aveugle", value="aveugle", variable=pack_value, command=select_pack)
 
 # Menu "à propos"
 

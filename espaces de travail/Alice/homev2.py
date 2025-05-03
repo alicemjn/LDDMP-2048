@@ -6,16 +6,14 @@ couleur={"font" : "#756e66",
         "fond_classique" : "#EEE4DA",
         "fond_autre" : "#CDC1B5",
         "bordure1" : "#DED4CA",
-        "bordure2" : "#C3B4A5" }
+        "bordure2" : "#C3B4A5"}
 
 racine = tk.Tk()
 racine.configure(bg=couleur["fond_général"], height=520, width=440)
 racine.title('home')
 
-
-label2048 = tk.Label(racine, text="2048", font=(couleur["font"], 60, "bold"), bg=couleur["fond_général"], fg=couleur["couleur_font"])
+label2048 = tk.Label(racine, text="2048", font=(couleur["font"], 80, "bold"), bg=couleur["fond_général"], fg=couleur["couleur_font"])
 label2048.place(x=0, y=40, width=440, height=100)
-
 
 #frame 
 
@@ -40,7 +38,7 @@ frameetendue.place(x=3, y=3, width=150, height=90)
 bordure3 = tk.Frame(racine, bg=couleur["bordure2"])
 bordure3.place(x=52, y=297, width=156, height=96)
 
-frameperso=tk.Frame(bordure3, bg=couleur["fond_autre"])
+frameperso=tk.Canvas(bordure3, bg=couleur["fond_autre"], highlightthickness=0)
 frameperso.place(x=3, y=3, width=150, height=90 )
 
 #competitif
@@ -56,40 +54,47 @@ framecompetitif.place(x=3, y=3, width=150, height=90 )
 
 #classique
 
-classique1=tk.Label(frameclassique, text="classique", font=(couleur["font"], 15), bg=couleur["fond_classique"], fg=couleur["couleur_font"]) 
+classique1=tk.Label(frameclassique, text="Classique", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["fond_classique"], fg=couleur["couleur_font"]) 
 classique1.place(x=5, y=2, width=140, height=40)
 
-classique2=tk.Label(frameclassique, text="4X4", font=(couleur["font"], 20, "bold"), bg=couleur["fond_classique"], fg=couleur["couleur_font"]) 
+classique2=tk.Label(frameclassique, text="4x4", font=("Helvetica, Arial, sans-serif", 30, "bold"), bg=couleur["fond_classique"], fg=couleur["couleur_font"]) 
 classique2.place(x=4, y=40, width=140, height=40)
 
 
 #étendue
 
-etendue1=tk.Label(frameetendue, text="étendue", font=(couleur["font"], 15), bg=couleur["fond_autre"], fg=couleur["couleur_font"]) 
+etendue1=tk.Label(frameetendue, text="Étendue", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["fond_autre"], fg=couleur["couleur_font"]) 
 etendue1.place(x=5, y=2, width=140, height=40)
 
-etendue2=tk.Label(frameetendue, text="8X8", font=(couleur["font"], 20, "bold"), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
+etendue2=tk.Label(frameetendue, text="8x8", font=("Helvetica, Arial, sans-serif", 30, "bold"), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
 etendue2.place(x=4, y=40, width=140, height=40)
 
 
 #personnalisé
 
-perso1=tk.Label(frameperso, text="personnalisé", font=(couleur["font"], 15), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
+perso1=tk.Label(frameperso, text="Personnalisé", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
 perso1.place(x=5, y=2, width=140, height=40)
 
-perso_entrée = tk.Entry(frameperso, bg=couleur["bordure2"], fg=couleur["font"], font=(couleur["font"], 14), borderwidth=0)
-perso_entrée.place(x=8, y=45, width=90, height=38)
+perso_entrée = tk.Entry(frameperso, bg="white", fg="black", font=("Helvetica, Arial, sans-serif", 20), borderwidth=0, highlightthickness=0)
+perso_entrée.place(x=30, y=52, width=50, height=25)
 
-perso_ok=tk.Label(frameperso, text="OK", font=(couleur["font"], 15), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
-perso_ok.place(x=98, y=45, width=50, height=35)
+# boutons Ok proportions 38x38
+perso_ok=tk.Label(frameperso, text="OK", font=("Helvetica, Arial, sans-serif", 16), bg="white", fg=couleur["couleur_font"])
+perso_ok.place(x=103, y=52)
+
+# ajout des contours boutons ok et entry (coins arrondis)
+frameperso.create_oval(98, 45, 136, 83, fill="white", width=0)
+        # on créer un rectangle et deux cercles pour le entry hauteur = 38
+frameperso.create_oval(15, 45, 53, 83, fill="white", width=0)
+frameperso.create_oval(57, 45, 95, 83, fill="white", width=0)
+frameperso.create_rectangle(34,45,77,84, fill="white", width=0)
 
 #compétitif
 
-competitif1=tk.Label(framecompetitif, text="compétitif", font=(couleur["font"], 15), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
+competitif1=tk.Label(framecompetitif, text="Compétitif", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
 competitif1.place(x=5, y=2, width=140, height=40)
 
-competitif2=tk.Label(framecompetitif, text="4X4", font=(couleur["font"], 20, "bold"), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
+competitif2=tk.Label(framecompetitif, text="4x4", font=("Helvetica, Arial, sans-serif", 30, "bold"), bg=couleur["fond_autre"], fg=couleur["couleur_font"])
 competitif2.place(x=4, y=40, width=140, height=40)
-
 
 racine.mainloop()

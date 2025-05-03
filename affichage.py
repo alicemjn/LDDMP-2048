@@ -96,3 +96,23 @@ barbie = {
     64:"#E22B8D", 128:"#35554B",
     256:"#FADE9E", 512:"#E1949C",
     1024:"#9F5D4B", 2048: "#FF96C8"}
+
+android = {
+    ### packs de couleurs Android
+    # bordures de la grille
+    "background": "#000000",
+    # couleurs de la police
+    "default_font": "#FFFFFF",
+    # couleurs des cases
+    0:"#373737", 2:"#9601FF" ,
+    4: "#F0145A", 8:"#FFC919", 
+    16:"#00C418", 32:"#0095D5", 
+    64:"#CE007B", 128:"#FF5418",
+    256:"#28D7A5", 512:"#3C14AE",
+    1024:"#FF0024", 2048: "#5F069B"}
+
+aveugle = {
+    ### packs de couleurs Aveugle
+    "background": "#FFFFFF",
+    "default_font": "#000000",
+    0: "#FFFFFF"}
