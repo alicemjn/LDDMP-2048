@@ -54,7 +54,7 @@ frameperso=tk.Canvas(racine, bg=couleur["gris"], highlightthickness=0)
 frameperso.place(x=66, y=255, width=180, height=85)
 
 perso1=tk.Label(frameperso, text="Personnalisé", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["gris"], fg="white")
-perso1.place(x=5, y=2, width=140, height=40)
+perso1.place(x=5, y=2, width=180, height=40)
 
 perso_entrée = tk.Entry(frameperso, bg="white", fg="black", font=("Helvetica, Arial, sans-serif", 20), borderwidth=0, highlightthickness=0)
 perso_entrée.place(x=30, y=52, width=50, height=25)
