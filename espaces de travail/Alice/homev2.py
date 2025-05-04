@@ -12,7 +12,7 @@ racine = tk.Tk()
 racine.configure(bg=couleur["fond_général"], height=520, width=440)
 racine.title('home')
 
-label2048 = tk.Label(racine, text="2048", font=(couleur["font"], 80, "bold"), bg=couleur["fond_général"], fg=couleur["couleur_font"])
+label2048 = tk.Label(racine, text="2048", font=("Helvetica, Arial, sans-serif", 80, "bold"), bg=couleur["fond_général"], fg=couleur["couleur_font"])
 label2048.place(x=0, y=40, width=440, height=100)
 
 #frame 
