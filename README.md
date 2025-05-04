@@ -1,6 +1,7 @@
 # Projet de programmation du jeu 2048
 
 Groupe LDDMP
+>
 Membres: Erwan Maugeri, Alice Mejane, Danisha Allagapen, Laurène Pan
 
 Lien du github: https://github.com/alicemjn/LDDMP-2048.git <br/>
