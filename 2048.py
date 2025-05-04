@@ -144,8 +144,11 @@ def start_game(taille, competitif, DIM):
                 bestBlock_nbr.config(text=score[1])
 
     # fonction de changelent de pack
-    def select_pack():
-        print(pack.get())
+    def select_pack(value):
+        nonlocal pack
+        pack = tk.StringVar(value=value) 
+        spawn(grille, game, pack, labels, DIM)
+        aff.affichage(grille, labels, pack.get())
 
     # gestion de l'entrée
     game.bind('<Up>', lambda event: fleche('haut'))
@@ -177,13 +180,13 @@ def start_game(taille, competitif, DIM):
     pack_menu = tk.Menu(menubar_game, tearoff=0)
     menubar_game.add_cascade(label="Pack de couleur", menu=pack_menu)
 
-    pack_menu.add_radiobutton(label="Par default", value="default", variable=pack, command=select_pack)
-    pack_menu.add_radiobutton(label="Moderne", value="moderne", variable=pack, command=select_pack)
-    pack_menu.add_radiobutton(label="Billard", value="billard", variable=pack, command=select_pack)
-    pack_menu.add_radiobutton(label="Squid Game", value="squid_game", variable=pack, command=select_pack)
-    pack_menu.add_radiobutton(label="Barbie", value="barbie", variable=pack, command=select_pack)
-    pack_menu.add_radiobutton(label="Android", value="android", variable=pack, command=select_pack)
-    pack_menu.add_radiobutton(label="Aveugle", value="aveugle", variable=pack, command=select_pack)
+    pack_menu.add_radiobutton(label="Par default", variable=pack, command=lambda: select_pack("default"))
+    pack_menu.add_radiobutton(label="Moderne", variable=pack, command=lambda: select_pack("moderne"))
+    pack_menu.add_radiobutton(label="Billard", variable=pack, command=lambda: select_pack("billard"))
+    pack_menu.add_radiobutton(label="Squid Game", variable=pack, command=lambda: select_pack("squid_game"))
+    pack_menu.add_radiobutton(label="Barbie", variable=pack, command=lambda: select_pack("barbie"))
+    pack_menu.add_radiobutton(label="Android", variable=pack, command=lambda: select_pack("android"))
+    pack_menu.add_radiobutton(label="Aveugle", variable=pack, command=lambda: select_pack("aveugle"))
     
     pack_menu.invoke(0) # coche default par défaut puisque c'est tjrs la veleur par défaut
 
@@ -201,9 +204,9 @@ def ouvrir_fichier_ext(nom):
     if systeme == 'Windows':
         os.startfile(nom)
     elif systeme == 'Darwin':
-        os.system('open '+nom)
+        os.system('open '+ nom)
     elif systeme == 'Linux':
-        os.system('xdg-open '+nom)
+        os.system('xdg-open '+ nom)
 
 
 
