@@ -6,6 +6,7 @@ Membres: Erwan Maugeri, Alice Mejane, Danisha Allagapen, Laurène Pan
 Lien du github https://github.com/alicemjn/LDDMP-2048.git <br/>
 Voir aussi le fichier [Méthode de travail pour le projet 2048](./TRAVAIL.md)
 
+##répartition du travail
 Nous nous sommes répartis le travail de la manière suivante, tout en mettant nos travaux en commun au fur et à mesure pour assurer une cohérence, et avoir la validation de tous les membres du groupe :
     Alice : j'ai codé l'interface de la grille et de la page d'accueil
     Laurène : 
@@ -13,6 +14,7 @@ Nous nous sommes répartis le travail de la manière suivante, tout en mettant n
     Danisha : 
 
 
+##comment utiliser le programme
 En exécutant le fichier "[nom du fichier final]", la page d'accueil intéractive s'ouvre, et 4 modes de jeux différents sont proposés à l'utilisateur : "Classique", "Etendue", "Personnalisé" et "Compétitif" :
 
   Classique : c'est le 2048 comme on le connaît, grille 4X4
