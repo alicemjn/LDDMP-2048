@@ -17,7 +17,7 @@ Voir aussi la documentation [TAVAIL.md](./TRAVAIL.md) pour en apprendre plus sur
 
 ## Executer le programme
 
-Télécharger les fichiers [2048.py](./2048.py), [affichage.py](./affichage.py), [matrice.py](./matrice.py) et [mouvements.py](./mouvements.py]
+Télécharger les fichiers [2048.py](./2048.py), [affichage.py](./affichage.py), [matrice.py](./matrice.py) et [mouvements.py](./mouvements.py).
 
 En exécutant le fichier "2048.py", la page d'accueil intéractive s'ouvre, et 4 modes de jeux différents sont proposés à l'utilisateur : "Classique", "Étendue", "Personnalisé" et "Compétitif":
 * Classique : c'est le 2048 comme on le connaît: grille 4X4 et apparation aléatoire des blocs
