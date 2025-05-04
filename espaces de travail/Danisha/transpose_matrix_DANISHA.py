@@ -4,10 +4,6 @@ def transpose(matrix):
 
 matrix = [[4,4,4,4],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 
-print("matrix")
-for line in matrix:
-    print(line)
-
 def transpose_right(matrix):
     return[list(reversed(row)) for row in transpose(matrix)]
 
@@ -18,7 +14,7 @@ print("transpose gauche:")
 for line in matrix_transpose:
     print(line) 
 
-matrix_transpose_right = transpose_right(matrix_transpose)
+matrix_transpose_right = transpose_right(matrix)
 '''cette fonction permet de transposer la matrice a droite'''
 print("transpose droite:")   
 for line in matrix_transpose_right:
