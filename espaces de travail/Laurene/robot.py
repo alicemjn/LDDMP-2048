@@ -1,4 +1,4 @@
-import random as Afshkan 
+import random as Ashkan 
 
 
 M=[[0,0,0,0],
@@ -27,7 +27,7 @@ def valeur( M , i , j ):
           elif dessous ==4:
                M[i][j]=2
           else:
-               M[i][j]=2 if Afshkan.randint(1,10)<=9 else 4
+               M[i][j]=2 if Ashkan.randint(1,10)<=9 else 4
                
 
 def cube(M,compteur_mouvement):
@@ -40,7 +40,7 @@ def cube(M,compteur_mouvement):
                   if ligne[j]==0:
                     case_vide.append(j)
            if case_vide:
-                    index_case=Afshkan.randint(0,len(case_vide)-1)
+                    index_case=Ashkan.randint(0,len(case_vide)-1)
                     valeur (M, i , index_case)
                     print (M)
                     break
