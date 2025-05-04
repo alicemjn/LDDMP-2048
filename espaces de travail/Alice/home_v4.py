@@ -33,27 +33,27 @@ title.place(x=0, y=0, height=150, width=520)
 frameclassique=tk.Frame(racine, bg=couleur["jaune"])
 frameclassique.place(x=66, y=150, width=180, height=85)
 
-classique1=tk.Label(frameclassique, text="Classique", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["jaune"]) 
+classique1=tk.Label(frameclassique, text="Classique", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["jaune"], fg="white") 
 classique1.place(x=0, y=5, width=180, height=30)
 
-classique2=tk.Label(frameclassique, text="4x4", font=("Helvetica, Arial, sans-serif", 40, "bold"), bg=couleur["jaune"]) 
+classique2=tk.Label(frameclassique, text="4x4", font=("Helvetica, Arial, sans-serif", 40, "bold"), bg=couleur["jaune"], fg="white")
 classique2.place(x=0, y=35, width=180, height=35)
 
     # étendue
 frameetendue=tk.Frame(racine, bg=couleur["gris"])
 frameetendue.place(x=266, y=150, width=180, height=85)
 
-etendue1=tk.Label(frameetendue, text="Étendue", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["gris"]) 
+etendue1=tk.Label(frameetendue, text="Étendue", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["gris"], fg="white") 
 etendue1.place(x=0, y=5, width=180, height=30)
 
-etendue2=tk.Label(frameetendue, text="8x8", font=("Helvetica, Arial, sans-serif", 40, "bold"), bg=couleur["gris"])
+etendue2=tk.Label(frameetendue, text="8x8", font=("Helvetica, Arial, sans-serif", 40, "bold"), bg=couleur["gris"], fg="white")
 etendue2.place(x=0, y=35, width=180, height=35)
 
     #personnalisé
 frameperso=tk.Canvas(racine, bg=couleur["gris"], highlightthickness=0)
 frameperso.place(x=66, y=255, width=180, height=85)
 
-perso1=tk.Label(frameperso, text="Personnalisé", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["gris"])
+perso1=tk.Label(frameperso, text="Personnalisé", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["gris"], fg="white")
 perso1.place(x=5, y=2, width=140, height=40)
 
 perso_entrée = tk.Entry(frameperso, bg="white", fg="black", font=("Helvetica, Arial, sans-serif", 20), borderwidth=0, highlightthickness=0)
@@ -74,10 +74,10 @@ frameperso.create_rectangle(34,45,77,84, fill="white", width=0)
 framecompetitif=tk.Frame(racine, bg=couleur["orange"])
 framecompetitif.place(x=266, y=255, width=180, height=85)
 
-competitif1=tk.Label(framecompetitif, text="Compétitif", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["orange"])
+competitif1=tk.Label(framecompetitif, text="Compétitif", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["orange"], fg="white")
 competitif1.place(x=0, y=5, width=180, height=30)
 
-competitif2=tk.Label(framecompetitif, text="4x4", font=("Helvetica, Arial, sans-serif", 40, "bold"), bg=couleur["orange"])
+competitif2=tk.Label(framecompetitif, text="4x4", font=("Helvetica, Arial, sans-serif", 40, "bold"), bg=couleur["orange"], fg="white")
 competitif2.place(x=0, y=35, width=180, height=35)
 
 racine.mainloop()
