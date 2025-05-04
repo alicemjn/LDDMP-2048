@@ -7,20 +7,23 @@ import affichage as aff
 # environnement Jeu et Menu Principal
 
 racine = tk.Tk()
+racine.config(width=610, height=610)
+racine.resizable(False, False)
+
 racine.title('2048')
 
 # fonctions principales
 
-def spawn(grille, game, pack, labels):
+def spawn(grille, game, pack, labels, DIM):
     """ La fonction spawn créer l'environnement dans les nouvelles fenetres ouvertes (voir fct start_game)
         - Création de la grille vide en fct du choix de l'utilisateur (grille 4X4, 8x8)
         - Création de la grille en tkinter
         - Ajout des éléements visuels comme le score """
 
     # dimensions
-    DIM = 90 # taille des boutons
+    DIM #taille des boutons
     n = len(grille)
-    Grid_DIM = 90*n + (n+1)*10
+    Grid_DIM = DIM*n + (n+1)*10
 
     # afficher le Canvas
     container = tk.Canvas(game, width=Grid_DIM, height=Grid_DIM, bg=getattr(aff, pack.get())["background"], highlightthickness=0)
@@ -37,10 +40,11 @@ def spawn(grille, game, pack, labels):
 
 # fonctions de navigation entre les fenêtres
 
-def start_game(taille, competitif):
+def start_game(taille, competitif, DIM):
     """ Creer une nouvelle fenetre de jeu "game". Peuple la fenetre avec la fonction spawn, active 
     les fcts de mouvements"""
     game = tk.Tk()
+    game.config(bg="#ECECEC")
     pack = tk.StringVar(value="default") # pack de couleur par defaut
 
     if taille == 4:
@@ -57,9 +61,16 @@ def start_game(taille, competitif):
     mx.cube(grille)
     score = mx.score(grille)
 
+    # mettre le titre
+    title2048 = tk.Label(game, text="2048", font=("Helvetica, Arial, sans-serif", 50, "bold"), fg="#776E65", bg="#ECECEC")
+    title2048.place(x=30, height=80)
+
+    # calcul de la largeur de la fenetre pour aligner les élements (score et game over)
+    width = 90*len(grille) + (len(grille)+1)*10 + 60
+
     # score
     scoreBlock_container = tk.Label(game, bg="#BCAC9F")
-    scoreBlock_container.place(x=230, y=15, height=50, width=100)
+    scoreBlock_container.place(x=(width-240), y=15, height=50, width=100)
 
     scoreBlock_text = tk.Label(scoreBlock_container, text="Score", font=("Helvetica, Arial, sans-serif", 15), bg="#BCAC9F", fg="#EEE4DA")
     scoreBlock_text.place(x=0, height=20, width=100)
@@ -70,7 +81,7 @@ def start_game(taille, competitif):
     # best block
 
     bestBlock_container = tk.Label(game, bg="#BCAC9F")
-    bestBlock_container.place(x=340, y=15, height=50, width=100)
+    bestBlock_container.place(x=(width-130), y=15, height=50, width=100)
 
     bestBlock_text = tk.Label(bestBlock_container, text="Meilleur", font=("Helvetica, Arial, sans-serif", 15), bg="#BCAC9F", fg="#EEE4DA")
     bestBlock_text.place(x=0, height=20, width=100)
@@ -82,14 +93,10 @@ def start_game(taille, competitif):
     scoreBlock_nbr.config(text=score[0])
     bestBlock_nbr.config(text=score[1])
 
-    # mettre le titre
-    title2048 = tk.Label(game, text="2048", font=("Helvetica, Arial, sans-serif", 50, "bold"), fg="#776E65")
-    title2048.place(x=30, height=80)
-
     labels = {} # pour cibler les éléments plus tard, non dynamique puisque qu'il s'agit juste de ciblage
 
     #spawn
-    spawn(grille, game, pack, labels)
+    spawn(grille, game, pack, labels, DIM)
 
     # affichage initial
     aff.affichage(grille, labels, pack.get())
@@ -126,7 +133,6 @@ def start_game(taille, competitif):
                     # placer le texte game over
                     gameOVER = tk.Label(game, text="GAME OVER", font=("Helvetica, Arial, sans-serif", 60, "bold"), fg="white", bg="black")
                     y = 80 + (90*len(grille) + (len(grille)+1)*10 + 30)/2 - 65 
-                    width = 90*len(grille) + (len(grille)+1)*10 + 60
                     gameOVER.place(x=0, y=y, height=100, width=width)
                     # fermer la fct (arret du jeu)
                     return
@@ -183,27 +189,6 @@ def start_game(taille, competitif):
     
     pack_menu.invoke(0) # coche default par défaut puisque c'est tjrs la veleur par défaut
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # autres fonctions
 
 def ouvrir_fichier_ext(nom):
@@ -237,25 +222,108 @@ def ouvrir_fichier_ext(nom):
 
 
 
+
+
+
+
+
+
+
 # fentetre racine (boutons, menu, fct pour ouvrir des nouvelles parties)
 
-button1 = tk.Button(racine, text="open", command=lambda: start_game(4, False))
-button1.grid(row=0)
+couleur={"font_title" : "#776E65",
+        "jaune" : "#EDC702",
+        "gris" : "#A4937D",
+        "orange" : "#F47D57",
+        "red" : "red"}
+
+# canvas avec titre 2048 et grille automatique
+
+overlay_canvas = tk.Canvas(racine, bg="white", highlightthickness=0)
+overlay_canvas.place(x=0, y=0, width=610, height=610)
+
+# titre 2048 dans le canvas
 
 
 
+# boutons par dessus le canvas
 
+    # classique
+frameclassique=tk.Frame(racine, bg=couleur["jaune"])
+frameclassique.place(x=115, y=200, width=180, height=85)
 
+classique1=tk.Label(frameclassique, text="Classique", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["jaune"], fg="white") 
+classique1.place(x=0, y=5, width=180, height=30)
 
+classique2=tk.Label(frameclassique, text="4x4", font=("Helvetica, Arial, sans-serif", 30, "bold"), bg=couleur["jaune"], fg="white")
+classique2.place(x=0, y=38, width=180, height=35)
 
+    # étendue
+frameetendue=tk.Frame(racine, bg=couleur["gris"])
+frameetendue.place(x=315, y=200, width=180, height=85)
 
+etendue1=tk.Label(frameetendue, text="Étendue", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["gris"], fg="white") 
+etendue1.place(x=0, y=5, width=180, height=30)
 
+etendue2=tk.Label(frameetendue, text="8x8", font=("Helvetica, Arial, sans-serif", 30, "bold"), bg=couleur["gris"], fg="white")
+etendue2.place(x=0, y=38, width=180, height=35)
 
+    #personnalisé
+frameperso=tk.Label(racine, bg=couleur["gris"])
+frameperso.place(x=115, y=305, width=180, height=85)
 
+perso1=tk.Label(frameperso, text="Personnalisé", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["gris"], fg="white")
+perso1.place(x=5, y=2, width=180, height=40)
 
+# Entry + fct qui empêche l'utilisateur de rentrer des valeurs non entières et supérieurs à 2 caratères
 
+def validate_entry(text):
+    """ Vérifie si le texte est vide (autorisé) ou un entier de max 2 caractères """
+    if len(text) == 0:
+        return True
+    if len(text) <= 2 and text.isdigit():
+        return True
+    return False
 
+vcmd = (racine.register(validate_entry), '%P')
 
+perso_entree = tk.Entry(frameperso, bg="white", fg="black", 
+                        font=("Helvetica, Arial, sans-serif", 20), 
+                        borderwidth=0, highlightthickness=0,
+                        validate="key", validatecommand=vcmd) # appel de la fct validate entry
+perso_entree.place(x=40, y=40, width=70, height=30)
+
+perso_ok=tk.Label(frameperso, text="Ok", font=("Helvetica, Arial, sans-serif", 15), bg="white", fg="grey")
+perso_ok.place(x=117, y=40, height=30, width=30)
+
+    #competitif
+framecompetitif=tk.Frame(racine, bg=couleur["orange"])
+framecompetitif.place(x=315, y=305, width=180, height=85)
+
+competitif1=tk.Label(framecompetitif, text="Compétitif", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["orange"], fg="white")
+competitif1.place(x=0, y=5, width=180, height=30)
+
+competitif2=tk.Label(framecompetitif, text="4x4", font=("Helvetica, Arial, sans-serif", 30, "bold"), bg=couleur["orange"], fg="white")
+competitif2.place(x=0, y=38, width=180, height=35)
+
+# fonctions quand on clique sur les boutons (qui sont en réalité des Labels d'où ce système D)
+
+def start_game_perso(event):
+    valeur = perso_entree.get()
+    if valeur != "":
+        if int(valeur) > 1:
+            start_game(int(valeur), False, 90)
+
+classique1.bind("<Button-1>", lambda event: start_game(4,False, 90))
+classique2.bind("<Button-1>", lambda event: start_game(4,False, 90))
+
+etendue1.bind("<Button-1>", lambda event: start_game(8,False, 90))
+etendue2.bind("<Button-1>", lambda event: start_game(8,False, 90))
+
+perso_ok.bind("<Button-1>", start_game_perso)
+
+competitif1.bind("<Button-1>", lambda event: start_game(4,True, 90))
+competitif2.bind("<Button-1>", lambda event: start_game(4,True, 90))
 
 # menu de la racine (sans changement de pack)
 
@@ -277,6 +345,27 @@ about_menu.add_command(label="README", command=lambda: ouvrir_fichier_ext('readm
 about_menu.add_command(label="Github", command=lambda: ouvrir_fichier_ext('https://github.com/alicemjn/LDDMP-2048'))
 about_menu.add_command(label="Méthode de travail", command=lambda: ouvrir_fichier_ext('TRAVAIL.md'))
 about_menu.add_command(label="version: v5", state='disabled')
+
+#animation du canvas
+
+def animate(grille):
+    labels = {}
+    pack_home = tk.StringVar(value="home")
+    # spawn
+    overlay_canvas.config(bg=getattr(aff, pack_home.get())["background"], highlightthickness=0)
+    n = 6
+    DIM=90
+    for i in range(n):
+        for j in range(n):
+            # les labels
+            new_Label = tk.Label(overlay_canvas, font=("Helvetica, Arial, sans-serif", 40, "bold"))
+            new_Label.place(x=10 + j*(DIM+10), y=10 + i*(DIM+10), width=DIM, height=DIM)
+            labels[(i,j)] = new_Label
+    mx.cube(grille)
+    aff.affichage(grille, labels, pack_home.get())
+
+grille_background = [[0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0]]
+animate(grille_background)
 
 # boucler et afficher initialement la fenêtre racine
 
