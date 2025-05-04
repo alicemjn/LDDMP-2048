@@ -104,6 +104,10 @@ def start_game(taille, competitif, DIM):
     # fonctions de mouvements, uniques pour chaque fenetre
 
     def fleche(event, MAJ=None, c=0):
+        """ Cette fonction permet de déplacer petit à petit les cubes dans la grille. Elle est récurssive cad 
+        qu'à la fin de l'execution elle va se rapeller elle même après un certian laps de temps (DELAIS) ce 
+        qui permet de créer l'animation des cubes qui bougent"""
+
         assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
 
         nonlocal grille
@@ -145,6 +149,8 @@ def start_game(taille, competitif, DIM):
 
     # fonction de changelent de pack
     def select_pack(value):
+        """ Cette fonction permet de changer de pack de couleur (mise à jour de la variable pack et affichage
+        de la nouvelle grille) """
         nonlocal pack
         pack = tk.StringVar(value=value) 
         spawn(grille, game, pack, labels, DIM)
@@ -310,6 +316,8 @@ competitif2.place(x=0, y=38, width=180, height=35)
 # fonctions quand on clique sur les boutons (qui sont en réalité des Labels d'où ce système D)
 
 def start_game_perso(event):
+    """ Fonction intermédiaire de start_game() qui ouvre une grille personnalisé avec ce que l'utilisateur
+    a saisit dans le widget entry du bouton personnalisé"""
     valeur = perso_entree.get()
     if valeur != "":
         if int(valeur) > 1:
@@ -350,6 +358,7 @@ about_menu.add_command(label="version: v5", state='disabled')
 #animation du canvas
 
 def animate(grille):
+    """ tentative de focntion qui anime une grille en arrière plan """
     labels = {}
     pack_home = tk.StringVar(value="home")
     # spawn

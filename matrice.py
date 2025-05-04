@@ -3,12 +3,16 @@ import random as Ashkan
 # fonctions
 
 def matrice_en_int(grille):
+    """ débloque les valeurs de la matrice (car pour bloquer des valeurs on mets les nombres en str, donc débloquer
+    revient à passer les str en int, pas de soucis car meme si ce sont des str, ce sont quand meme des nombres)
+    rappel: dans le 2048 16+8+8 font 16+16 et pas 32 ! (pour un seul déplacement)"""
     for n in range(len(grille)):  # Parcours des lignes
         for i in range(len(grille[n])):  # Parcours des colonnes
             if isinstance(grille[n][i], str):  # Vérifie si c'est une string
                 grille[n][i] = int(grille[n][i])  # Convertit en int
 
 def contient_zero(grille):
+    """ regarde si il reste des 0 dans la matrice """
     for ligne in grille:
         for nombre in ligne:
             if nombre == 0:
@@ -16,7 +20,7 @@ def contient_zero(grille):
     return False
 
 def is_game_over(grille):
-    """Vérifie si aucun mouvement n'est possible."""
+    """ Vérifie si aucun mouvement n'est possible."""
     # Si la grille contient encore des zéros, le jeu n'est pas terminé
     if contient_zero(grille):
         return False
@@ -59,10 +63,12 @@ def cube(grille):
             cube(grille)
 
 def transpose(matrix):
+    """ transpose la matrice à gauche """
     taille = len(matrix)
     return [[matrix[j][i] for j in range(taille)] for i in range(taille)]
 
 def transpose_right(matrix):
+    """ transpose la matrice à droite """
     taille = len(matrix)
     return [[matrix[j][i] for j in range(taille)] for i in range(taille)]
 

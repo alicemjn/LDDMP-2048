@@ -1,4 +1,5 @@
 def police(valeur):
+    """ Diminue la ploice lorsque le nombre est grand pour éviter les débordements"""
     if valeur < 999:
         return 40  
     elif valeur < 9999:
@@ -9,6 +10,8 @@ def police(valeur):
         return 20
 
 def affichage(grille, labels, pack):
+    """ Affiche la grille mise à jour par la fonction move. Parcours la matrice et affiche les éléments au fur 
+    et à mesure (met à jour les labels qui sont dans la grille)."""
     LEN = len(grille)
     #met à jour les valeurs (text) prises par les cases de la grille, et leur associe une couleur en appelant la fonction color_case
     for i in range(LEN):
@@ -18,6 +21,8 @@ def affichage(grille, labels, pack):
 
 
 def color_case(valeur, pack):
+    """ (fct annexe de afficahge) décide de la couleur de la case. Si il n'y a pas de couleur personnalisé
+    pour un bloc (dans les packs de couleurs qui sont en dessous), affiche le bloc en noir."""
     if isinstance(valeur, str) :
         if valeur in globals()[pack]:
             return globals()[pack][valeur]
