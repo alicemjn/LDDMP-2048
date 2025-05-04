@@ -2,7 +2,7 @@
 
 Groupe LDDMP
 >
-Membres: Erwan Maugeri, Alice Mejane, Danisha Allagapen, Laurène Pan
+Membres: Erwan MAUGERI, Alice MEJANE, Danisha ALLAGAPEN, Laurène PAN
 
 Lien du github: https://github.com/alicemjn/LDDMP-2048.git <br/>
 
