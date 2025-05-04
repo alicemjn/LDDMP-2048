@@ -251,7 +251,8 @@ overlay_canvas.place(x=0, y=0, width=610, height=610)
 
 # titre 2048 dans le canvas
 
-
+label2048 = tk.Label(racine, text="2048", font=("Helvetica, Arial, sans-serif", 100, "bold"), bg="white", fg=couleur["font_title"])
+label2048.place(x=180, y=50, width=250, height=78)
 
 # boutons par dessus le canvas
 
@@ -357,25 +358,28 @@ about_menu.add_command(label="version: v5", state='disabled')
 
 #animation du canvas
 
-def animate(grille):
-    """ tentative de focntion qui anime une grille en arrière plan """
-    labels = {}
-    pack_home = tk.StringVar(value="home")
-    # spawn
-    overlay_canvas.config(bg=getattr(aff, pack_home.get())["background"], highlightthickness=0)
-    n = 6
-    DIM=90
-    for i in range(n):
-        for j in range(n):
-            # les labels
-            new_Label = tk.Label(overlay_canvas, font=("Helvetica, Arial, sans-serif", 40, "bold"))
-            new_Label.place(x=10 + j*(DIM+10), y=10 + i*(DIM+10), width=DIM, height=DIM)
-            labels[(i,j)] = new_Label
-    mx.cube(grille)
-    aff.affichage(grille, labels, pack_home.get())
+def animate(grille, b=0, c=0):
+    """ tentative de fonction qui anime une grille en arrière plan """
+    if b==0:
+        labels = {}
+        pack_home = tk.StringVar(value="home")
+        # spawn
+        overlay_canvas.config(bg=getattr(aff, pack_home.get())["background"], highlightthickness=0)
+        n = 6
+        DIM=90
+        for i in range(n):
+            for j in range(n):
+                # les labels
+                new_Label = tk.Label(overlay_canvas, font=("Helvetica, Arial, sans-serif", 40, "bold"))
+                new_Label.place(x=10 + j*(DIM+10), y=10 + i*(DIM+10), width=DIM, height=DIM)
+                labels[(i,j)] = new_Label
+        mx.cube(grille)
+        aff.affichage(grille, labels, pack_home.get())
+        b = 1
+        animate(grille, b=0)
 
-grille_background = [[0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0]]
-animate(grille_background)
+#grille_background = [[0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0]]
+#animate(grille_background)
 
 # boucler et afficher initialement la fenêtre racine
 
