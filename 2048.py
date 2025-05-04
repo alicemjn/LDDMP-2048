@@ -108,7 +108,6 @@ grille = [[0,0,0,0],
           [0,0,0,0],
           [0,0,0,0]]
 
-pack = "default"
 pack_value = tk.StringVar(value="default")
 
 # grille pour tester les paks => (supprimer le # avant grille)

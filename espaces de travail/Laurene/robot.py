@@ -3,8 +3,8 @@ import random as Afshkan
 
 M=[[0,0,0,0],
    [0,0,0,0],
-   [0,0,2,2],
-   [4,8,16,32]]
+   [0,4,5,8],
+   [2,8,16,32]]
 
 
 compteur_mouvement={
@@ -30,8 +30,6 @@ def valeur( M , i , j ):
                M[i][j]=2 if Afshkan.randint(1,10)<=9 else 4
                
 
-
-       
 def cube(M,compteur_mouvement):
    a =  max ( compteur_mouvement, key= lambda cle :compteur_mouvement [cle] )
    if a == "bas":
@@ -48,6 +46,12 @@ def cube(M,compteur_mouvement):
                     break
            
        
-cube(M,compteur_mouvement)              
+cube(M,compteur_mouvement)     
+
+# afficher la matrice
+print (M[0])
+print (M[1])
+print (M[2])
+print (M[3])
 
 
