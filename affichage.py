@@ -1,13 +1,12 @@
-
 def police(valeur):
-    if valeur < 1024:
-        return 30    
-    elif valeur < 10000:
-        return 24
+    if valeur < 999:
+        return 40  
+    elif valeur < 9999:
+        return 35
+    elif valeur < 99999:
+        return 30
     else:
         return 20
-
-
 
 def affichage(grille, labels, pack):
     LEN = len(grille)
@@ -15,9 +14,7 @@ def affichage(grille, labels, pack):
     for i in range(LEN):
         for j in range(LEN):
             value = grille[i][j]
-            labels[(i, j)].config(text=str(value) if value != 0 else "", bg=color_case(int(value), pack), fg=color_case("fg_"+str(value), pack),font=('Helvetica',police(value))) 
-
-
+            labels[(i, j)].config(text=str(value) if value != 0 else "", bg=color_case(int(value), pack), fg=color_case("fg_"+str(value), pack),font=('Helvetica', police(int(value)), "bold")) 
 
 
 def color_case(valeur, pack):
