@@ -194,7 +194,6 @@ racine.bind('<Right>', lambda event: fleche('droite'))
 
 mx.cube(grille)
 spawn(grille, racine, pack_value.get())
-afficher(grille)
 
 # boucle
 

@@ -59,7 +59,22 @@ frameperso.place(x=66, y=255, width=180, height=85)
 perso1=tk.Label(frameperso, text="Personnalisé", font=("Helvetica, Arial, sans-serif", 20), bg=couleur["gris"], fg="white")
 perso1.place(x=5, y=2, width=180, height=40)
 
-perso_entrée = tk.Entry(frameperso, bg="white", fg="black", font=("Helvetica, Arial, sans-serif", 20), borderwidth=0, highlightthickness=0)
+# Entry + fct qui empêche l'utilisateur de rentrer des valeurs non entières et supérieurs à 2 caratères
+
+def validate_entry(text):
+    """ Vérifie si le texte est vide (autorisé) ou un entier de max 2 caractères """
+    if len(text) == 0:
+        return True
+    if len(text) <= 2 and text.isdigit():
+        return True
+    return False
+
+vcmd = (racine.register(validate_entry), '%P')
+
+perso_entrée = tk.Entry(frameperso, bg="white", fg="black", 
+                        font=("Helvetica, Arial, sans-serif", 20), 
+                        borderwidth=0, highlightthickness=0,
+                        validate="key", validatecommand=vcmd) # appel de la fct validate entry
 perso_entrée.place(x=40, y=40, width=70, height=30)
 
 perso_ok=tk.Label(frameperso, text="Ok", font=("Helvetica, Arial, sans-serif", 13), bg="white")
