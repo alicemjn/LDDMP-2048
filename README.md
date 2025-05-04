@@ -17,21 +17,27 @@ Voir aussi la documentation [TAVAIL.md](./TRAVAIL.md) pour en apprendre plus sur
 
 ## Executer le programme
 
-Télécharger les fichiers [2048.py](./2048.py), [affichage.py](./affichage.py), [matrice.py](./matrice.py) et [mouvements.py](./mouvements.py).
+Télécharger les fichiers [2048.py](./2048.py), [affichage.py](./affichage.py), [matrice.py](./matrice.py) et [mouvements.py](./mouvements.py) et executer le fichier "2048.py"
 
-En exécutant le fichier "2048.py", la page d'accueil intéractive s'ouvre, et 4 modes de jeux différents sont proposés à l'utilisateur : "Classique", "Étendue", "Personnalisé" et "Compétitif":
+## Le Jeu
+
+En exécutant le fichier "2048.py", la fenêtre d'accueil intéractive s'ouvre, et 4 modes de jeux différents sont proposés à l'utilisateur : "Classique", "Étendue", "Personnalisé" et "Compétitif":
 * Classique : c'est le 2048 comme on le connaît: grille 4X4 et apparation aléatoire des blocs
 * Etendue : ici, l'utilisateur joue sur une grille 8X8
-* Personnalisé : grâce au "entry", l'utilisateur peut choisir une taille de grille (5X5,7X7,...) et jouer en conséquence
-* Compétitif : ce mode permet à l'utilisateur de jouer contre un robot, dans ce cas, les blocs n'aparaissent non pas aléatoirement, mais de facon à bloquer le joueur pour le faire perdre plus rapidement. Ce mode ne se joue qu'en grille 4X4
+* Personnalisé : grâce au "entry", l'utilisateur peut choisir une taille de grille personnalisée (5X5,7X7,...) et jouer en conséquence
+* Compétitif : ce mode permet à l'utilisateur de jouer contre un robot, dans ce cas, les blocs n'aparaissent non plus aléatoirement, mais de facon à bloquer le joueur pour le faire perdre plus rapidement. Ce mode ne se joue qu'en grille 4X4 (bien qu'il serait possible d'ajouter une option personnalisable)
 
-En cliquant sur un de ces 4 boutons, une autre page s'ouvre, affichant la grille (deux blocs sont déjà affichés dans la grille avant même que l'utilisateur commence à jouer), un label "2048", le score de l'utilisateur évoluant à mesure qu'il joue, ainsi que son meilleur score. 
+En cliquant sur un de ces 4 boutons, une autre fenêtre s'ouvre, affichant la grille (la grille est automatiquement peuplée c'est-à-dire qu'il y a déjà le premier bloc d'affiché dans la grille avant même que l'utilisateur ne commence à jouer), un label "2048", le score de l'utilisateur (évoluant à mesure qu'il joue) et le nombre du plus gros bloc de la grille.
 
-De plus, 3 boutons sont présents dans la barre du haut :
+Pour jouer, l'utilisateur utilise les flèches directionnelles de son clavier et les blocs aparaissent dans la grille en conséquence (en fonction du mode de jeu qu'il a choisi).
 
-  Fichier : il permet d'enregistrer le fichier ou de l'importer (save et load)
-  Pack de couleur : en cliquant dessus, l'utilisateur peut choisir parmis différent thème, qui impliquerait un changement de couleur de la grille, de ses contours, et des blocs. Par défaut, si l'utilisateur ne touche pas à ce bouton, la grille apparaît selon le thème classique du 2048 en ligne
-  A propos : ce bouton renvoie au fichier README, au lien du github ou au fichier méthode de travail
+Lorsque le joueur a perdu (c'est-à-dire lorsqu'il n'y a plus de place pour qu'un bloc aparaisse dans la grille), une page "game over" s'affiche, et il suffit de retourner sur la fenetre d'acceuil pour relancer une partie. À noter qu'il est possible de lancer plusiseurs parties en même temps.
 
-Pour jouer, l'utilisateur se sert des flèches haut, bas, gauche, droite du clavier, et les blocs aparaissent dans la grille en conséquence (en fonction du mode de jeu qu'il a choisi).
-Lorsque le joueur a perdu (c'est-à-dire lorsqu'il n'y a plus de place pour qu'un bloc aparaisse dans la grille), une page "game over" s'affiche, et un bouton "recommencer" renvoie à la page d'accueil et permet de choisir le mode voulu, puis rejouer.
+De plus, 3 boutons sont présents dans la barre des menus:
+* Fichier : il permet d'enregistrer le fichier ou de l'importer (save et load)
+* A propos : ce bouton renvoie au fichier README, au lien du github ou au fichier méthode de travail
+* Pack de couleur : en cliquant dessus, l'utilisateur peut choisir parmis différent thème, qui impliquerait un changement de couleur de la grille, de ses contours, et des blocs. Par défaut, si l'utilisateur ne touche pas à ce bouton, la grille apparaît selon le thème classique du 2048 en ligne
+
+## Le principe derrière le jeu
+
+Développé en python avec le module tkinter, le jeu 2048 fonctionne avec une matrice qui est affichée à chaque déplacement des cubes dans la grille. Le programme ouvre d'abord une fenêtre racine. De là on peut ouvrir des fenetres de jeu indépendantes. Lorsque l'on lance une partie, on envoie à une fonction l'information de la taille de la grille. Le programme est dit dynamaique c'est-à-dire qu'il fonctionne quel que soit le nombre de lignes et colonnes de la grille 2048. Les 3 premiers boutons sont donc identiques si ce n'est qu'ils ne renvoient pas le même nombre de colonnes/lignes à créer (boutons classique envoie 4 et boutons étendue 8). Le seul boutons qui diffère est le bouton "compétitif" qui active le robot qui analyse la grille et compte les déplacements du joueur.
