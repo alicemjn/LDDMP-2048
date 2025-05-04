@@ -120,9 +120,7 @@ def start_game(taille, competitif, DIM):
             
             if event == "haut" or event == "bas":
                 # créer un transpose droite/gauche
-                MAJ = mx.transpose(MAJ)
-                MAJ = mx.transpose(MAJ)
-                MAJ = mx.transpose(MAJ)
+                MAJ = mx.transpose_right(MAJ)
             aff.affichage(MAJ, labels, pack.get())
             racine.after(DELAIS, lambda: fleche(event, MAJ, c=c+1))
         else:

@@ -62,6 +62,10 @@ def transpose(matrix):
     taille = len(matrix)
     return [[matrix[j][i] for j in range(taille)] for i in range(taille)]
 
+def transpose_right(matrix):
+    taille = len(matrix)
+    return [[matrix[j][i] for j in range(taille)] for i in range(taille)]
+
 def score(grille):
     """ Cet fonction renvoie la somme de ts les blocks de la grille et
     la valeur du plus gros block"""
