@@ -68,7 +68,7 @@ def cube_max(M):
                     coord_ligne = i - 1 
                     coord_colone=j
             if coord_ligne and coord_colone:
-                M[coord_ligne+1][coord_colone]=2 if Afshkan.randint(1,10)<=9 else 4
+                M[coord_ligne+1][coord_colone]=2 if Ashkan.randint(1,10)<=9 else 4
                 print(M)
                 break 
                
@@ -81,3 +81,7 @@ def transpose(M):
 
 transpose(M)
 
+print(M[0])
+print(M[1])
+print(M[2])
+print(M[3])
