@@ -17,12 +17,13 @@ Voir aussi la documentation [TAVAIL.md](./TRAVAIL.md) pour en apprendre plus sur
 
 ## Executer le programme
 
-En exécutant le fichier "[nom du fichier final]", la page d'accueil intéractive s'ouvre, et 4 modes de jeux différents sont proposés à l'utilisateur : "Classique", "Etendue", "Personnalisé" et "Compétitif" :
+Télécharger les fichiers [2048.py](./2048.py), [affichage.py](./affichage.py), [matrice.py](./matrice.py) et [mouvements.py](./mouvements.py]
 
-  Classique : c'est le 2048 comme on le connaît, grille 4X4
-  Etendue : ici, l'utilisateur joue sur une grille 8X8
-  Personnalisé : grâce au "entry", l'utilisateur peut choisir une taille de grille (5X5,7X7,...) et jouer en conséquence
-  Compétitif : ce mode permet à l'utilisateur de jouer contre un robot, dans ce cas, les blocs n'aparaissent non pas aléatoirement, mais de facon à bloquer le joueur pour le faire perdre plus rapidement. Ce mode ne se joue qu'en grille 4X4
+En exécutant le fichier "2048.py", la page d'accueil intéractive s'ouvre, et 4 modes de jeux différents sont proposés à l'utilisateur : "Classique", "Étendue", "Personnalisé" et "Compétitif":
+* Classique : c'est le 2048 comme on le connaît: grille 4X4 et apparation aléatoire des blocs
+* Etendue : ici, l'utilisateur joue sur une grille 8X8
+* Personnalisé : grâce au "entry", l'utilisateur peut choisir une taille de grille (5X5,7X7,...) et jouer en conséquence
+* Compétitif : ce mode permet à l'utilisateur de jouer contre un robot, dans ce cas, les blocs n'aparaissent non pas aléatoirement, mais de facon à bloquer le joueur pour le faire perdre plus rapidement. Ce mode ne se joue qu'en grille 4X4
 
 En cliquant sur un de ces 4 boutons, une autre page s'ouvre, affichant la grille (deux blocs sont déjà affichés dans la grille avant même que l'utilisateur commence à jouer), un label "2048", le score de l'utilisateur évoluant à mesure qu'il joue, ainsi que son meilleur score. 
 
