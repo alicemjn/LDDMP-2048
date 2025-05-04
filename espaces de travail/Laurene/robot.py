@@ -46,21 +46,11 @@ def cube(M,compteur_mouvement):
                     break
            
        
-cube(M,compteur_mouvement)     
+    
 
 # afficher la matrice
-print (M[0])
-print (M[1])
-print (M[2])
-print (M[3])
 
 
-import random as Afshkan
-
-M=[[1,7,2,2],
-   [6,9,9,20],
-   [0,0,0,2],
-   [2,8,16,32]]
 
 def cube_max(M):
     ligne = len(M)
@@ -84,6 +74,10 @@ def cube_max(M):
                
  
    
+def transpose(M):
+    taille = len(M)
+    return [[M[j][i] for j in range(taille)] for i in range(taille)]
+    
 
-cube_max(M)
+transpose(M)
 
