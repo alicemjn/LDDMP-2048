@@ -35,22 +35,14 @@ def spawn(grille, game, pack, labels):
             labels[(i,j)] = new_Label
 
 
-
-
-
-
-
-
-
-
-
-
 # fonctions de navigation entre les fenêtres
 
-def start_game(taille, competitif, pack):
+def start_game(taille, competitif):
     """ Creer une nouvelle fenetre de jeu "game". Peuple la fenetre avec la fonction spawn, active 
     les fcts de mouvements"""
     game = tk.Tk()
+    pack = tk.StringVar(value="default") # pack de couleur par defaut
+
     if taille == 4:
         if competitif == True:
             game.title('2048 Mode compétitif 4x4')
@@ -69,7 +61,7 @@ def start_game(taille, competitif, pack):
     scoreBlock_container = tk.Label(game, bg="#BCAC9F")
     scoreBlock_container.place(x=230, y=15, height=50, width=100)
 
-    scoreBlock_text = tk.Label(scoreBlock_container, text="SCORE", font=("Helvetica, Arial, sans-serif", 15), bg="#BCAC9F", fg="#EEE4DA")
+    scoreBlock_text = tk.Label(scoreBlock_container, text="Score", font=("Helvetica, Arial, sans-serif", 15), bg="#BCAC9F", fg="#EEE4DA")
     scoreBlock_text.place(x=0, height=20, width=100)
 
     scoreBlock_nbr = tk.Label(scoreBlock_container, text="0", font=("Helvetica, Arial, sans-serif", 25), bg="#BCAC9F", fg="#FFFFFF")
@@ -90,17 +82,17 @@ def start_game(taille, competitif, pack):
     scoreBlock_nbr.config(text=score[0])
     bestBlock_nbr.config(text=score[1])
 
+    # mettre le titre
+    title2048 = tk.Label(game, text="2048", font=("Helvetica, Arial, sans-serif", 50, "bold"), fg="#776E65")
+    title2048.place(x=30, height=80)
+
     labels = {} # pour cibler les éléments plus tard, non dynamique puisque qu'il s'agit juste de ciblage
-    
+
     #spawn
     spawn(grille, game, pack, labels)
 
     # affichage initial
     aff.affichage(grille, labels, pack.get())
-
-    # fonction de changement de pack de couleur
-    def select_pack():
-        aff.affichage(grille, labels, pack)
 
     # fonctions de mouvements, uniques pour chaque fenetre
 
@@ -129,7 +121,15 @@ def start_game(taille, competitif, pack):
         else:
             if MAJ == grille:
                 # meme matrice au début et à la fin
-                pass
+                if mx.is_game_over(grille) == True:
+                    # on a perdu !
+                    # placer le texte game over
+                    gameOVER = tk.Label(game, text="GAME OVER", font=("Helvetica, Arial, sans-serif", 60, "bold"), fg="white", bg="black")
+                    y = 80 + (90*len(grille) + (len(grille)+1)*10 + 30)/2 - 65 
+                    width = 90*len(grille) + (len(grille)+1)*10 + 60
+                    gameOVER.place(x=0, y=y, height=100, width=width)
+                    # fermer la fct (arret du jeu)
+                    return
             else:
                 grille = MAJ
                 mx.matrice_en_int(grille)
@@ -138,6 +138,10 @@ def start_game(taille, competitif, pack):
                 score = mx.score(grille)
                 scoreBlock_nbr.config(text=score[0])
                 bestBlock_nbr.config(text=score[1])
+
+    # fonction de changelent de pack
+    def select_pack():
+        print(pack.get())
 
     # gestion de l'entrée
     game.bind('<Up>', lambda event: fleche('haut'))
@@ -168,8 +172,8 @@ def start_game(taille, competitif, pack):
         # Menu "Pack de couleur"
     pack_menu = tk.Menu(menubar_game, tearoff=0)
     menubar_game.add_cascade(label="Pack de couleur", menu=pack_menu)
-    
-    pack_menu.add_radiobutton(label="Par defaut", value="default", variable=pack, command=select_pack)
+
+    pack_menu.add_radiobutton(label="Par default", value="default", variable=pack, command=select_pack)
     pack_menu.add_radiobutton(label="Moderne", value="moderne", variable=pack, command=select_pack)
     pack_menu.add_radiobutton(label="Billard", value="billard", variable=pack, command=select_pack)
     pack_menu.add_radiobutton(label="Squid Game", value="squid_game", variable=pack, command=select_pack)
@@ -235,9 +239,7 @@ def ouvrir_fichier_ext(nom):
 
 # fentetre racine (boutons, menu, fct pour ouvrir des nouvelles parties)
 
-pack = tk.StringVar(value="default")
-
-button1 = tk.Button(racine, text="open", command=lambda: start_game(4, False, pack))
+button1 = tk.Button(racine, text="open", command=lambda: start_game(4, False))
 button1.grid(row=0)
 
 

@@ -15,6 +15,27 @@ def contient_zero(grille):
                 return True
     return False
 
+def is_game_over(grille):
+    """Vérifie si aucun mouvement n'est possible."""
+    # Si la grille contient encore des zéros, le jeu n'est pas terminé
+    if contient_zero(grille):
+        return False
+
+    # Vérifier si des fusions sont encore possibles horizontalement
+    for y in range(len(grille)):
+        for x in range(len(grille[y]) - 1):
+            if grille[y][x] == grille[y][x + 1]:
+                return False
+
+    # Vérifier si des fusions sont encore possibles verticalement
+    for x in range(len(grille[0])):
+        for y in range(len(grille) - 1):
+            if grille[y][x] == grille[y + 1][x]:
+                return False
+
+    # Si on arrive ici, aucun mouvement n'est possible
+    return True
+
 def cube(grille):
     """ Cette fonction permet de remplir la grille tout en vérifiant que la place est 
     libre pour un nouveau block """
