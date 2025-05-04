@@ -17,7 +17,7 @@ Voir aussi la documentation [TAVAIL.md](./TRAVAIL.md) pour en apprendre plus sur
 
 ## Executer le programme
 
-Télécharger les fichiers [2048.py](./2048.py), [affichage.py](./affichage.py), [matrice.py](./matrice.py) et [mouvements.py](./mouvements.py) et executer le fichier "2048.py"
+Télécharger les fichiers [2048.py](./2048.py), [affichage.py](./affichage.py), [matrice.py](./matrice.py) et [mouvements.py](./mouvements.py) et executer le fichier "2048.py".
 
 ## Le Jeu
 
