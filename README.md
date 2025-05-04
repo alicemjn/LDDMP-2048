@@ -1,21 +1,19 @@
-# LDDMP-2048
-LDDMP
+# Projet de programmation du jeu 2048
 
+Groupe LDDMP
 Membres: Erwan Maugeri, Alice Mejane, Danisha Allagapen, Laurène Pan
 
-Lien du github https://github.com/alicemjn/LDDMP-2048.git <br/>
-Voir aussi le fichier [Méthode de travail pour le projet 2048](./TRAVAIL.md)
+Lien du github: https://github.com/alicemjn/LDDMP-2048.git <br/>
 
-
+## Répartition du travail
 
 Nous nous sommes répartis le travail de la manière suivante, tout en mettant nos travaux en commun au fur et à mesure pour assurer une cohérence, et avoir la validation de tous les membres du groupe :
-    Alice : interface de la grille, de la page d'accueil et robot
-    Laurène : interface de la page d'accueil et robot
-    Erwan : fonctionnement du jeu, intégration
-    Danisha : fonctionnement même du jeu, fonctions score et save
+Alice : interface de la grille, de la page d'accueil et robot
+Laurène : interface de la page d'accueil et robot
+Erwan : fonctionnement du jeu, intégration
+Danisha : fonctionnement même du jeu, fonctions score et save
 
-
-
+Voir aussi la documentation [Méthode de travail pour le projet 2048](./TRAVAIL.md) pour en apprendre plus sur nos méthodes de travail et de recherches pour ce projet.
 
 En exécutant le fichier "[nom du fichier final]", la page d'accueil intéractive s'ouvre, et 4 modes de jeux différents sont proposés à l'utilisateur : "Classique", "Etendue", "Personnalisé" et "Compétitif" :
 
