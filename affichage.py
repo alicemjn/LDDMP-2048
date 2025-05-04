@@ -1,10 +1,24 @@
+
+def police(valeur):
+    if valeur < 1024:
+        return 30    
+    elif valeur < 10000:
+        return 24
+    else:
+        return 20
+
+
+
 def affichage(grille, labels, pack):
     LEN = len(grille)
     #met à jour les valeurs (text) prises par les cases de la grille, et leur associe une couleur en appelant la fonction color_case
     for i in range(LEN):
         for j in range(LEN):
             value = grille[i][j]
-            labels[(i, j)].config(text=str(value) if value != 0 else "", bg=color_case(int(value), pack), fg=color_case("fg_"+str(value), pack))  #si value est égale à 0, aucun texte n'est affiché
+            labels[(i, j)].config(text=str(value) if value != 0 else "", bg=color_case(int(value), pack), fg=color_case("fg_"+str(value), pack),font=('Helvetica',police(value))) 
+
+
+
 
 def color_case(valeur, pack):
     if isinstance(valeur, str) :
