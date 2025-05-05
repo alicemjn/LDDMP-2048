@@ -2,6 +2,7 @@ import tkinter as tk
 import mouvements as mv
 import matrice as mx
 import affichage as aff
+import random as Ashkan
 
 # Création des fenêtres principales
 # environnement Jeu et Menu Principal
@@ -358,26 +359,64 @@ about_menu.add_command(label="version: v5", state='disabled')
 
 #animation du canvas
 
-def animate(grille, b=0, c=0):
-    """ tentative de fonction qui anime une grille en arrière plan """
-    if b==0:
-        labels = {}
-        pack_home = tk.StringVar(value="home")
-        # spawn
-        overlay_canvas.config(bg=getattr(aff, pack_home.get())["background"], highlightthickness=0)
-        n = 6
-        DIM=90
-        for i in range(n):
-            for j in range(n):
-                # les labels
-                new_Label = tk.Label(overlay_canvas, font=("Helvetica, Arial, sans-serif", 40, "bold"))
-                new_Label.place(x=10 + j*(DIM+10), y=10 + i*(DIM+10), width=DIM, height=DIM)
-                labels[(i,j)] = new_Label
-        aff.affichage(grille, labels, pack_home.get())
-        b = 1
+def animate():
+    """ tentative de fonction qui anime une grille en arrière plan. Reprend les fonctions 
+    précédentes avec un peu de ménage. La grille se relance lorsqu'elle est game over. """
+    grille = [[0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0]]
+    labels = {}
+    pack_home = tk.StringVar(value="home")
+    # spawn
+    overlay_canvas.config(bg=getattr(aff, pack_home.get())["background"], highlightthickness=0)
+    n = 6
+    DIM=90
+    for i in range(n):
+        for j in range(n):
+            # les labels
+            new_Label = tk.Label(overlay_canvas, font=("Helvetica, Arial, sans-serif", 40, "bold"))
+            new_Label.place(x=10 + j*(DIM+10), y=10 + i*(DIM+10), width=DIM, height=DIM)
+            labels[(i,j)] = new_Label
+    mx.cube(grille)
+    aff.affichage(grille, labels, pack_home.get())
 
-grille_background = [[0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [16,0,0,0,0,64], [8,2,2,0,32,128], [2,4,16,2,2,4]]
-animate(grille_background)
+    def fleche(event, MAJ=None, c=0):
+        assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
+
+        nonlocal grille
+        DELAIS = 100
+
+        if MAJ is None: # copie de grille sans pointer vers le meme espace mémoire sinon
+                        # on pointe vers la meme liste à la fin (pas bien compris ça)
+            MAJ = [row[:] for row in grille]
+        
+        if c < len(MAJ)-1:
+            if event == "haut" or event == "bas":
+                MAJ = mx.transpose(MAJ)
+            MAJ = mv.move(event, MAJ)
+            
+            if event == "haut" or event == "bas":
+                # créer un transpose droite/gauche
+                MAJ = mx.transpose_right(MAJ)
+            aff.affichage(MAJ, labels, pack_home.get())
+            racine.after(DELAIS, lambda: fleche(event, MAJ, c=c+1))
+        else:
+            if MAJ == grille:
+                # meme matrice au début et à la fin
+                if Ashkan.randint(0,1) == 0: fleche('droite') 
+                else: fleche('gauche')
+                
+                if mx.is_game_over(grille) == True:
+                    # relancer l'animation !
+                    animate()
+            else:
+                grille = MAJ
+                mx.matrice_en_int(grille)
+                mx.cube(grille)
+                aff.affichage(grille, labels, pack_home.get())
+                random_dir = Ashkan.randint(0,1)
+                fleche('bas')
+    fleche('gauche')
+
+animate()
 
 # boucler et afficher initialement la fenêtre racine
 
