@@ -2,38 +2,32 @@ import random as Ashkan
  
 
 
-M=[[2,2,2,25],
-   [2,2,2,2],
-   [2,2,2,2],
-   [15,2,39,2]]
+M=[[2,0,0,25],
+   [0,0,0,0],
+   [0,0,0,0],
+   [15,0,39,0]]
 
 
 compteur_mouvement={
     "haut":123,
     "bas":1,
     "gauche":5,
-    "droite":23}
+    "droite}":23}
 
 
 
-
-# M = grille / matrice
-# compteur_mouvement = dictionnaire
-
-# mouvement = dernière posiotion jouée par le joueur
         
-def robot(M,compteur_mouvement, mouvement):
-    """  """
-    #fonction compteur rajoute dans le dico le mouvement effectuer 
+def cube(M,compteur_mouvement, mouvement) :  
+#fonction compteur rajoute dans le dico le mouvement effectuer 
     if mouvement in compteur_mouvement :
         compteur_mouvement[mouvement]+=1
-    trie_cle=sorted(compteur_mouvement, key=lambda cle: compteur_mouvement[cle])
-    a = trie_cle[0]
-    b = trie_cle[-1]
-    c = trie_cle[1]      
+        trie_cle=sorted(compteur_mouvement, key=lambda cle: compteur_mouvement[1])
+    a =   max ( compteur_mouvement, key= lambda cle :compteur_mouvement [cle] )
+    b =   min ( compteur_mouvement, key= lambda cle :compteur_mouvement [cle] )
+    c =   trie_cle[1]           
 
-    # decide de lapparition du cube si la strategie est bas gauche et si le mouvement 
-    # effctuer est bas ou gauche                
+# decide de lapparition du cube si la strategie est bas gauche et si le mouvement 
+# effctuer est bas ou gauche                
     
     if (a == "bas" and c=="gauche") and (mouvement == "bas" or mouvement=="gauche"):
        for i in range(len(M)-1,-1,-1):  # Parcours des lignes de bas en haut
@@ -56,11 +50,12 @@ def robot(M,compteur_mouvement, mouvement):
                 else:
                     M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
 
-                return M
+                print (M)
+                break
 
 
-    # decide de lapparition du cube si la strategie est bas droite et si le mouvement 
-    # effctuer est bas ou droite
+# decide de lapparition du cube si la strategie est bas droite et si le mouvement 
+# effctuer est bas ou droite
     
     if (a == "bas" and c=="droite") and (mouvement == "bas" or mouvement=="droite"):
        for i in range(len(M)-1,-1,-1):  # Parcours des lignes de bas en haut
@@ -82,11 +77,13 @@ def robot(M,compteur_mouvement, mouvement):
                         M[i][index_case]=2 if Ashkan.randint(1,10)<=9 else 4
                 else:
                     M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
-                return M
+
+                print (M)
+                break
 
 
-    # decide de lapparition du cube si la strategie est haut gauche et si le mouvement 
-    # effctuer est haut ou gauche
+# decide de lapparition du cube si la strategie est haut gauche et si le mouvement 
+# effctuer est haut ou gauche
 
     if (a == "haut" and c=="gauche")and( mouvement == "haut" or mouvement=="gauche"):
         for i in range(len(M)):  
@@ -108,11 +105,13 @@ def robot(M,compteur_mouvement, mouvement):
                         M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
                 else:
                     M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
-                
-                return M
 
-    # decide de lapparition du cube si la strategie est haut droite et si le mouvement 
-    # effctuer est haut ou droite
+                print(M)
+                break
+
+
+# decide de lapparition du cube si la strategie est haut droite et si le mouvement 
+# effctuer est haut ou droite
 
     if (a == "haut" and c=="droite") and (mouvement == "haut" or mouvement=="droite"):
         for i in range(len(M)):  
@@ -135,10 +134,11 @@ def robot(M,compteur_mouvement, mouvement):
                 else:
                     M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
 
-                return M
+                print(M)
+                break
 
 
-    #decide de la position du cube si strat haut et mouveent bas         
+#decide de la position du cube si strat haut et mouveent bas         
     
     if mouvement == "bas" and b == "bas":   
         ligne = len(M)
@@ -155,12 +155,13 @@ def robot(M,compteur_mouvement, mouvement):
                         coord_colone = j
                 if coord_ligne is not None and coord_colone is not None:
                     M[coord_ligne - 1][coord_colone] = 2 if Ashkan.randint(1, 10) <= 9 else 4
-                    return M
+                    print(M)
+                    break
 
 
-    #decide de la position du cube si strat bas et mouvement haut
+#decide de la position du cube si strat bas et mouvement haut
 
-    if mouvement =="haut" and b=="haut":   
+    if mouvement =="haut" and b=="haut" :   
       ligne = len(M)
       colone = len(M[0])
       for i in range(1, ligne):  
@@ -175,9 +176,11 @@ def robot(M,compteur_mouvement, mouvement):
                     coord_colone=j
                     if coord_ligne is not None and coord_colone is not None:
                         M[coord_ligne+1][coord_colone]=2 if Ashkan.randint(1,10)<=9 else 4
-                        return M
+                        print(M)
+                        break
 
-    #si le compteur ne permet pas encore le fonctionement du programme ou le joueur nas pas de strategie
+
+#si le compteur ne permet pas encore le fonctionement du programme ou le joueur nas pas de strategie
     
     else :
         case_vide=[]
@@ -190,9 +193,5 @@ def robot(M,compteur_mouvement, mouvement):
           index = Ashkan.randint(0, len(case_vide) - 1)
           i, j = case_vide[index]
           M[i][j] = 2 if Ashkan.randint(1, 10) <= 9 else 4
-        else:
-            print("perdu")
-
-
-robot(M, compteur_mouvement,"haut")
+          print(M)
         
