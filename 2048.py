@@ -104,6 +104,9 @@ def start_game(taille, competitif, DIM):
 
     # fonctions de mouvements, uniques pour chaque fenetre
 
+    # dictionnaire qui compte les mouvements de l'utilisateur
+    compteur_mouvement={"haut":0,"bas":0,"gauche":0,"droite":0}
+
     def fleche(event, MAJ=None, c=0):
         """ Cette fonction permet de déplacer petit à petit les cubes dans la grille. Elle est récurssive cad 
         qu'à la fin de l'execution elle va se rapeller elle même après un certian laps de temps (DELAIS) ce 
@@ -112,6 +115,7 @@ def start_game(taille, competitif, DIM):
         assert event in ("gauche", "droite", "haut", "bas"), "La fonction ne reçoit pas cet argument"
 
         nonlocal grille
+        nonlocal compteur_mouvement
         DELAIS = 65
 
         if MAJ is None: # copie de grille sans pointer vers le meme espace mémoire sinon
@@ -142,11 +146,15 @@ def start_game(taille, competitif, DIM):
             else:
                 grille = MAJ
                 mx.matrice_en_int(grille)
-                mx.cube(grille)
+                if competitif == False:
+                    mx.cube(grille)
+                else:
+                    mx.robot(grille,compteur_mouvement, event)
                 aff.affichage(grille, labels, pack.get())
                 score = mx.score(grille)
                 scoreBlock_nbr.config(text=score[0])
                 bestBlock_nbr.config(text=score[1])
+                compteur_mouvement[event] += 1
 
     # fonction de changelent de pack
     def select_pack(value):
