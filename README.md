@@ -9,7 +9,7 @@ Lien du github: https://github.com/alicemjn/LDDMP-2048.git <br/>
 ## Répartition du travail
 
 Nous nous sommes répartis le travail de la manière suivante, tout en mettant nos travaux en commun au fur et à mesure pour assurer une cohérence, et avoir la validation de tous les membres du groupe :
-* Alice : interface de la grille, de la page d'accueil et robot
+* Alice : interface de la grille, de la page d'accueil
 * Laurène : robot et fonction game over
 * Erwan : fonctionnement du jeu (déplacements, fusions, animations), intégration de toutes les différentes parties entre elles, supervision (une vue générale de tout le projet est nécessaire pour pouvoir imbriquer toutes les parties entre elles de manière cohérente et sans bugs)
 * Danisha : calculs sur la matrice (transpositions, lecture de la matrice) , fonctions score et save (pas terminée)
