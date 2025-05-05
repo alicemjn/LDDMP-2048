@@ -373,13 +373,11 @@ def animate(grille, b=0, c=0):
                 new_Label = tk.Label(overlay_canvas, font=("Helvetica, Arial, sans-serif", 40, "bold"))
                 new_Label.place(x=10 + j*(DIM+10), y=10 + i*(DIM+10), width=DIM, height=DIM)
                 labels[(i,j)] = new_Label
-        mx.cube(grille)
         aff.affichage(grille, labels, pack_home.get())
         b = 1
-        animate(grille, b=0)
 
-#grille_background = [[0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0]]
-#animate(grille_background)
+grille_background = [[0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], [16,0,0,0,0,64], [8,2,2,0,32,128], [2,4,16,2,2,4]]
+animate(grille_background)
 
 # boucler et afficher initialement la fenêtre racine
 
