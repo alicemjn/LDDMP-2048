@@ -1,4 +1,4 @@
-import random as Afshkan 
+import random as Ashkan 
 
 
 M=[[0,0,0,0],
@@ -39,17 +39,14 @@ def cube(M,compteur_mouvement):
                   if ligne[j]==0:
                     case_vide.append(j)
            if case_vide:
-                    index_case=Afshkan.randint(0,len(case_vide)-1)
+                    index_case=Ashkan.randint(0,len(case_vide)-1)
                     M[i][index_case]= 2
                     break
 
-cube(M,compteur_mouvement) 
+ 
 
 # afficher la matrice
-print (M[0])
-print (M[1])
-print (M[2])
-print (M[3])
+
 
 # ça marche pas encore très bien ...
 # essaye:
@@ -80,3 +77,5 @@ print (M[3])
 # [0,0]
 # [1,1]
 # géneraliser avec ça : transformer les matrice en matrice ou la direction "préférence" devient systématiquement "haut"
+
+
