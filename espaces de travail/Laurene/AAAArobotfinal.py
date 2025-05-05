@@ -32,10 +32,49 @@ def robot(M,compteur_mouvement, mouvement):
     b = trie_cle[-1]
     c = trie_cle[1]      
 
+    #decide de la position du cube si strat haut et mouveent bas         
+    
+    if mouvement == "bas" and b == "bas":   
+        ligne = len(M)
+        colone = len(M[0])
+        for i in range(ligne - 2, -1, -1):  # Parcours des lignes de bas en haut
+            if 0 in M[i]:  
+                max_val = -1
+                coord_ligne = None
+                coord_colone = None
+                for j in range(colone):
+                    if M[i][j] == 0 and M[i + 1][j] > max_val:  # Comparaison avec la ligne en dessous
+                        max_val = M[i + 1][j]
+                        coord_ligne = i + 1 
+                        coord_colone = j
+                if coord_ligne is not None and coord_colone is not None:
+                    M[coord_ligne - 1][coord_colone] = 2 if Ashkan.randint(1, 10) <= 9 else 4
+                    return M
+
+
+    #decide de la position du cube si strat bas et mouvement haut
+
+    elif mouvement =="haut" and b=="haut":   
+      ligne = len(M)
+      colone = len(M[0])
+      for i in range(1, ligne):  
+        if 0 in M[i]:  
+            max_val = -1
+            coord_ligne = None
+            coord_colone=None
+            for j in range(colone):
+                if M[i][j] == 0 and M[i - 1][j] > max_val:  
+                    max_val = M[i - 1][j]
+                    coord_ligne = i - 1 
+                    coord_colone=j
+                    if coord_ligne is not None and coord_colone is not None:
+                        M[coord_ligne+1][coord_colone]=2 if Ashkan.randint(1,10)<=9 else 4
+                        return M
+    
     # decide de lapparition du cube si la strategie est bas gauche et si le mouvement 
     # effctuer est bas ou gauche                
     
-    if (a == "bas" and c=="gauche") and (mouvement == "bas" or mouvement=="gauche"):
+    elif (a == "bas" and c=="gauche") and (mouvement == "bas" or mouvement=="gauche"):
        for i in range(len(M)-1,-1,-1):  # Parcours des lignes de bas en haut
            case_vide=[]
            ligne= M[i]
@@ -58,11 +97,10 @@ def robot(M,compteur_mouvement, mouvement):
 
                 return M
 
-
     # decide de lapparition du cube si la strategie est bas droite et si le mouvement 
     # effctuer est bas ou droite
     
-    if (a == "bas" and c=="droite") and (mouvement == "bas" or mouvement=="droite"):
+    elif (a == "bas" and c=="droite") and (mouvement == "bas" or mouvement=="droite"):
        for i in range(len(M)-1,-1,-1):  # Parcours des lignes de bas en haut
            case_vide=[]
            ligne= M[i]
@@ -88,7 +126,7 @@ def robot(M,compteur_mouvement, mouvement):
     # decide de lapparition du cube si la strategie est haut gauche et si le mouvement 
     # effctuer est haut ou gauche
 
-    if (a == "haut" and c=="gauche")and( mouvement == "haut" or mouvement=="gauche"):
+    elif (a == "haut" and c=="gauche")and( mouvement == "haut" or mouvement=="gauche"):
         for i in range(len(M)):  
             case_vide = []
             ligne = M[i]
@@ -114,7 +152,7 @@ def robot(M,compteur_mouvement, mouvement):
     # decide de lapparition du cube si la strategie est haut droite et si le mouvement 
     # effctuer est haut ou droite
 
-    if (a == "haut" and c=="droite") and (mouvement == "haut" or mouvement=="droite"):
+    elif (a == "haut" and c=="droite") and (mouvement == "haut" or mouvement=="droite"):
         for i in range(len(M)):  
             case_vide = []
             ligne = M[i]
@@ -137,49 +175,9 @@ def robot(M,compteur_mouvement, mouvement):
 
                 return M
 
-
-    #decide de la position du cube si strat haut et mouveent bas         
-    
-    if mouvement == "bas" and b == "bas":   
-        ligne = len(M)
-        colone = len(M[0])
-        for i in range(ligne - 2, -1, -1):  # Parcours des lignes de bas en haut
-            if 0 in M[i]:  
-                max_val = -1
-                coord_ligne = None
-                coord_colone = None
-                for j in range(colone):
-                    if M[i][j] == 0 and M[i + 1][j] > max_val:  # Comparaison avec la ligne en dessous
-                        max_val = M[i + 1][j]
-                        coord_ligne = i + 1 
-                        coord_colone = j
-                if coord_ligne is not None and coord_colone is not None:
-                    M[coord_ligne - 1][coord_colone] = 2 if Ashkan.randint(1, 10) <= 9 else 4
-                    return M
-
-
-    #decide de la position du cube si strat bas et mouvement haut
-
-    if mouvement =="haut" and b=="haut":   
-      ligne = len(M)
-      colone = len(M[0])
-      for i in range(1, ligne):  
-        if 0 in M[i]:  
-            max_val = -1
-            coord_ligne = None
-            coord_colone=None
-            for j in range(colone):
-                if M[i][j] == 0 and M[i - 1][j] > max_val:  
-                    max_val = M[i - 1][j]
-                    coord_ligne = i - 1 
-                    coord_colone=j
-                    if coord_ligne is not None and coord_colone is not None:
-                        M[coord_ligne+1][coord_colone]=2 if Ashkan.randint(1,10)<=9 else 4
-                        return M
-
     #si le compteur ne permet pas encore le fonctionement du programme ou le joueur nas pas de strategie
     
-    else :
+    else:
         case_vide=[]
         for j in range(len(M[0])):       
           for i in range(len(M)):      
