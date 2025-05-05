@@ -88,13 +88,23 @@ def score(grille):
 # robot
 
 def robot(M, compteur_mouvement, mouvement):
-    a = min(compteur_mouvement, key=compteur_mouvement.get)  # direction évitée
-    b = max(compteur_mouvement, key=compteur_mouvement.get)  # direction préférée
+    #fonction compteur rajoute dans le dico le mouvement effectuer 
+    if mouvement in compteur_mouvement :
+        compteur_mouvement[mouvement]+=1
+    trie_cle=sorted(compteur_mouvement, key=lambda cle: compteur_mouvement[cle]) # trie ordre décroissant
+    a = trie_cle[-1] # direction évitée
+    b = trie_cle[0] # direction préférée
 
     lignes, colonnes = len(M), len(M[0])
 
+    # Donne la le nombre pour le bloc (inverse du bloc du dessous)
     def bloc_inverse(val):
-        return 4 if val == 2 else 2 if val == 4 else 2 if Ashkan.randint(0, 1) else 4
+        if val == 2:
+            return 4
+        elif val == 4:
+            return 2
+        else:
+            return 2 if Ashkan.randint(0, 1) else 4 # cf la fonction cube
 
     def placer_bas_possible(col, val=None):
         for i in range(lignes - 1, -1, -1):
@@ -116,8 +126,8 @@ def robot(M, compteur_mouvement, mouvement):
                     elif a in ["gauche", "droite"]:
                         # on bloque dans la même ligne, à droite si 'gauche' évitée, à gauche si 'droite' évitée
                         direction = 1 if a == "gauche" else -1
-                        for offset in range(1, colonnes):
-                            nj = j + offset * direction
+                        for tourner in range(1, colonnes):
+                            nj = j + tourner * direction
                             if 0 <= nj < colonnes and M[i][nj] == 0:
                                 dessous = M[i + 1][nj] if i + 1 < lignes else 0
                                 M[i][nj] = bloc_inverse(dessous)
