@@ -88,73 +88,71 @@ def score(grille):
 # robot
 
 def robot(M, compteur_mouvement, mouvement):
-    """fonction qui prend en compte uniquement si le joueur joue vers le as et essaie de le bloquer
-    si  haut ou gauche ou droite est jouer alors elle"transpose" la matrice """
-    #fonction compteur rajoute dans le dico le mouvement effectuer 
-    if mouvement in compteur_mouvement :
-        compteur_mouvement[mouvement]+=1
-    trie_cle=sorted(compteur_mouvement, key=lambda cle: compteur_mouvement[cle]) # trie ordre décroissant
-    a = trie_cle[-1] # direction évitée
-    b = trie_cle[0] # direction préférée
+    a = min(compteur_mouvement, key=compteur_mouvement.get)  # direction la moins utilisée
+    b = max(compteur_mouvement, key=compteur_mouvement.get)  # direction préférée
 
     lignes, colonnes = len(M), len(M[0])
 
-    # Donne la le nombre pour le bloc (inverse du bloc du dessous)
-    def bloc(val):
-        if val == 2:
-            return 4
-        elif val == 4:
-            return 2
-        else:
-            return 2 if Ashkan.randint(0, 1) else 4 # cf la fonction cube
+    def bloc_inverse(val):
+        return 4 if val == 2 else 2 if val == 4 else 2 if Ashkan.randint(0, 1) else 4
 
-    def placer_bas(col, val=None):
+    def placer_bas_possible(col, val=None):
         for i in range(lignes - 1, -1, -1):
             if M[i][col] == 0:
                 dessous = M[i + 1][col] if i + 1 < lignes else 0
-                M[i][col] = bloc(dessous) if val is None else val
+                M[i][col] = bloc_inverse(dessous) if val is None else val
                 return True
         return False
 
-    # utilise soudainement une direction evite
-    if mouvement == a:
+    def piege_direction(d):
         max_val = max(max(row) for row in M)
         for i in range(lignes):
             for j in range(colonnes):
                 if M[i][j] == max_val:
-                    if a in ["haut", "bas"]:
-                        if placer_bas(j):
-                            return M
-                    elif a in ["gauche", "droite"]:
-                        # on bloque dans la même ligne, à droite si 'gauche' évitée, à gauche si 'droite' évitée
-                        direction = 1 if a == "gauche" else -1
-                        for tourner in range(1, colonnes):
-                            nj = j + tourner * direction
+                    if d == "haut" or d == "bas":
+                        if placer_bas_possible(j):
+                            return True
+                    elif d == "gauche" or d == "droite":
+                        direction = 1 if d == "gauche" else -1
+                        for offset in range(1, colonnes):
+                            nj = j + offset * direction
                             if 0 <= nj < colonnes and M[i][nj] == 0:
                                 dessous = M[i + 1][nj] if i + 1 < lignes else 0
-                                M[i][nj] = bloc(dessous)
-                                return M
+                                M[i][nj] = bloc_inverse(dessous)
+                                return True
+        return False
 
-    # bloquer la direction favorite
+    # Cas où le joueur N’A JAMAIS joué dans une direction → poser un piège si c'est le bon moment
+    for direction in ["haut", "bas", "gauche", "droite"]:
+        if compteur_mouvement[direction] == 0 and mouvement == direction:
+            if piege_direction(direction):
+                return M
+
+    # Cas standard : le joueur utilise sa direction évitée → poser un piège
+    if mouvement == a:
+        if piege_direction(a):
+            return M
+
+    # Sinon, bloquer sa direction préférée
     if b in ["droite", "gauche"]:
         for i in range(lignes - 1, -1, -1):
             for j in range(colonnes - 1):
                 if M[i][j] != 0 and M[i][j + 1] == 0:
                     dessous = M[i + 1][j + 1] if i + 1 < lignes else 0
-                    M[i][j + 1] = bloc(dessous)
+                    M[i][j + 1] = bloc_inverse(dessous)
                     return M
     elif b in ["haut", "bas"]:
         for j in range(colonnes):
             for i in range(lignes - 2, -1, -1):
                 if M[i][j] != 0 and M[i + 1][j] == 0:
                     dessous = M[i + 2][j] if i + 2 < lignes else 0
-                    M[i + 1][j] = bloc(dessous)
+                    M[i + 1][j] = bloc_inverse(dessous)
                     return M
 
-    # on remplit en bas
+    # Fallback : remplir le plus bas possible
     for _ in range(10):
         j = Ashkan.randint(0, colonnes - 1)
-        if placer_bas(j):
+        if placer_bas_possible(j):
             return M
 
     return M
