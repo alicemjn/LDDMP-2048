@@ -216,4 +216,7 @@ def cube_max2(M,mouvement,compteur_mouvement):
 
                 print (M)
                 break
+
+
+
 cube_max2(M,"bas",compteur_mouvement)

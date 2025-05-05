@@ -2,17 +2,17 @@ import random as Ashkan
  
 
 
-M=[[2,0,0,25],
-   [0,0,0,0],
-   [0,0,0,0],
-   [15,0,39,0]]
+M=[[2,2,2,25],
+   [2,2,2,2],
+   [2,2,2,2],
+   [15,2,39,2]]
 
 
 compteur_mouvement={
     "haut":123,
     "bas":1,
     "gauche":5,
-    "droite}":23}
+    "droite":23}
 
 
 
@@ -21,10 +21,11 @@ def cube(M,compteur_mouvement, mouvement) :
 #fonction compteur rajoute dans le dico le mouvement effectuer 
     if mouvement in compteur_mouvement :
         compteur_mouvement[mouvement]+=1
-        trie_cle=sorted(compteur_mouvement, key=lambda cle: compteur_mouvement[1])
-    a =   max ( compteur_mouvement, key= lambda cle :compteur_mouvement [cle] )
-    b =   min ( compteur_mouvement, key= lambda cle :compteur_mouvement [cle] )
-    c =   trie_cle[1]           
+    trie_cle=sorted(compteur_mouvement, key=lambda cle: compteur_mouvement[cle])
+    a =   trie_cle[0]
+    b =   trie_cle[-1]
+    c =   trie_cle[1]     
+    print(compteur_mouvement)      
 
 # decide de lapparition du cube si la strategie est bas gauche et si le mouvement 
 # effctuer est bas ou gauche                
@@ -51,7 +52,7 @@ def cube(M,compteur_mouvement, mouvement) :
                     M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
 
                 print (M)
-                break
+                return
 
 
 # decide de lapparition du cube si la strategie est bas droite et si le mouvement 
@@ -79,7 +80,7 @@ def cube(M,compteur_mouvement, mouvement) :
                     M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
 
                 print (M)
-                break
+                return
 
 
 # decide de lapparition du cube si la strategie est haut gauche et si le mouvement 
@@ -107,8 +108,7 @@ def cube(M,compteur_mouvement, mouvement) :
                     M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
 
                 print(M)
-                break
-
+                return
 
 # decide de lapparition du cube si la strategie est haut droite et si le mouvement 
 # effctuer est haut ou droite
@@ -135,7 +135,7 @@ def cube(M,compteur_mouvement, mouvement) :
                     M[i][index_case] = 2 if Ashkan.randint(1, 10) <= 9 else 4
 
                 print(M)
-                break
+                return
 
 
 #decide de la position du cube si strat haut et mouveent bas         
@@ -156,7 +156,7 @@ def cube(M,compteur_mouvement, mouvement) :
                 if coord_ligne is not None and coord_colone is not None:
                     M[coord_ligne - 1][coord_colone] = 2 if Ashkan.randint(1, 10) <= 9 else 4
                     print(M)
-                    break
+                    return
 
 
 #decide de la position du cube si strat bas et mouvement haut
@@ -177,7 +177,7 @@ def cube(M,compteur_mouvement, mouvement) :
                     if coord_ligne is not None and coord_colone is not None:
                         M[coord_ligne+1][coord_colone]=2 if Ashkan.randint(1,10)<=9 else 4
                         print(M)
-                        break
+                        return
 
 
 #si le compteur ne permet pas encore le fonctionement du programme ou le joueur nas pas de strategie
@@ -194,4 +194,9 @@ def cube(M,compteur_mouvement, mouvement) :
           i, j = case_vide[index]
           M[i][j] = 2 if Ashkan.randint(1, 10) <= 9 else 4
           print(M)
+        else:
+            print("perdue")
+
+
+cube(M, compteur_mouvement,"haut")
         
